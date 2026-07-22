@@ -1,0 +1,28 @@
+# BasicConfigurationFlow
+
+main: kit: flow: BasicConfigurationFlow:
+{
+  entity: "configuration",
+  kind: "basic",
+  name: "BasicConfigurationFlow",
+  step: [
+    {
+      input: {
+        ref: "configuration_ref01",
+        srcdatavar: "configuration_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-configuration_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicConfigurationFlow"
+}

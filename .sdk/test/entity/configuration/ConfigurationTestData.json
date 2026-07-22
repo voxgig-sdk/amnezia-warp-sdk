@@ -1,0 +1,33 @@
+{
+  "existing": {
+    "configuration": {
+      "CONFIGURATION00": {
+        "config": {},
+        "path": "s1f",
+        "status": "s20",
+        "id": "CONFIGURATION00"
+      },
+      "CONFIGURATION01": {
+        "config": {},
+        "path": "s3d",
+        "status": "s3e",
+        "id": "CONFIGURATION01"
+      },
+      "CONFIGURATION02": {
+        "config": {},
+        "path": "s5b",
+        "status": "s5c",
+        "id": "CONFIGURATION02"
+      }
+    }
+  },
+  "new": {
+    "configuration": {
+      "configuration_ref01": {
+        "config": {},
+        "path": "s79",
+        "status": "s7a"
+      }
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GitHub Website API",
+    "description": "This API provides information about the GitHub website, specifically the status of the site, including any downtime or errors that may occur. It offers suggestions based on error codes and potential solutions to users experiencing issues accessing the site. This is a warp configuration generator API.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://github.com/l0v3m0n3y/warpgen"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://valokda-amnezia.vercel.app",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/warp": {
+      "get": {
+        "summary": "Get warp config",
+        "description": "Retrieves a warp configuration file. This endpoint generates and returns configuration data for warp/VPN connectivity.",
+        "operationId": "getWarpConfig",
+        "tags": [
+          "Configuration"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with warp configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "config": {
+                      "type": "object",
+                      "description": "Warp configuration object"
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "Path where configuration is saved"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Status of the configuration generation"
+                    }
+                  }
+                },
+                "example": {
+                  "config": {
+                    "interface": {
+                      "private_key": "example_private_key",
+                      "address": "10.0.0.1/32"
+                    },
+                    "peer": {
+                      "public_key": "example_public_key",
+                      "endpoint": "example.endpoint.com:51820"
+                    }
+                  },
+                  "status": "success",
+                  "path": "/configs/warp_config.conf"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Plain text configuration file content"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - Error generating or saving config",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Error saving config",
+                  "status": "error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable - GitHub website or API is experiencing downtime",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "unavailable"
+                    },
+                    "suggestion": {
+                      "type": "string",
+                      "description": "Suggested action for the user"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Service temporarily unavailable",
+                  "status": "unavailable",
+                  "suggestion": "Please try again later or check the GitHub status page"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WarpConfig": {
+        "type": "object",
+        "description": "Warp configuration object",
+        "properties": {
+          "interface": {
+            "type": "object",
+            "properties": {
+              "private_key": {
+                "type": "string",
+                "description": "Private key for the warp interface"
+              },
+              "address": {
+                "type": "string",
+                "description": "IP address for the interface"
+              }
+            }
+          },
+          "peer": {
+            "type": "object",
+            "properties": {
+              "public_key": {
+                "type": "string",
+                "description": "Public key for the peer"
+              },
+              "endpoint": {
+                "type": "string",
+                "description": "Endpoint address and port"
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "status": {
+            "type": "string",
+            "description": "Error status"
+          },
+          "suggestion": {
+            "type": "string",
+            "description": "Suggested solution for the error"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Configuration",
+      "description": "Operations related to warp configuration generation"
+    }
+  ]
+}

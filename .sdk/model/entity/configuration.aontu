@@ -1,0 +1,48 @@
+# Entity: configuration
+
+main: kit: entity: configuration: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "config"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "path"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "status"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "configuration"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          method: "GET"
+          orig: "/api/warp"
+          parts: [
+            "api"
+            "warp"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -1,0 +1,25 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      auth: false
+      contact: {
+        url: "https://github.com/l0v3m0n3y/warpgen"
+      }
+      description: "This API provides information about the GitHub website, specifically the status of the site, including any downtime or errors that may occur. It offers suggestions based on error codes and potential solutions to users experiencing issues accessing the site. This is a warp configuration generator API."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://valokda-amnezia.vercel.app"
+        }
+      ]
+      summary: "This API provides information about the GitHub website, specifically the status of the site, including any downtime or errors that may occur."
+      title: "GitHub Website API"
+      version: "1.0.0"
+      website: "https://valokda-amnezia.vercel.app"
+    }
+  }
+}
+
