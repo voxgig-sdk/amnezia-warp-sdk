@@ -43,8 +43,8 @@ class GithubWebsiteTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('GITHUBWEBSITE_TEST_LIVE');
-        $override = self::getenv('GITHUBWEBSITE_TEST_OVERRIDE');
+        $live = self::getenv('GITHUB_WEBSITE_TEST_LIVE');
+        $override = self::getenv('GITHUB_WEBSITE_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class GithubWebsiteTestRunner
             }
         }
 
-        $explain = self::getenv('GITHUBWEBSITE_TEST_EXPLAIN');
+        $explain = self::getenv('GITHUB_WEBSITE_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['GITHUBWEBSITE_TEST_EXPLAIN'] = $explain;
+            $m['GITHUB_WEBSITE_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

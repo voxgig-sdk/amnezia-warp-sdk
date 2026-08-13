@@ -65,11 +65,11 @@ function configuration_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "GITHUBWEBSITE_TEST_CONFIGURATION_ENTID" => [],
-        "GITHUBWEBSITE_TEST_LIVE" => "FALSE",
+        "GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID" => [],
+        "GITHUB_WEBSITE_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["GITHUBWEBSITE_TEST_LIVE"] === "TRUE";
+    $live = $env["GITHUB_WEBSITE_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

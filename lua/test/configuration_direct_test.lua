@@ -60,11 +60,11 @@ function configuration_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["GITHUBWEBSITE_TEST_CONFIGURATION_ENTID"] = {},
-    ["GITHUBWEBSITE_TEST_LIVE"] = "FALSE",
+    ["GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID"] = {},
+    ["GITHUB_WEBSITE_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["GITHUBWEBSITE_TEST_LIVE"] == "TRUE"
+  local live = env["GITHUB_WEBSITE_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

@@ -56,6 +56,7 @@ module GithubWebsiteConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/warp",
                   "parts" => [
@@ -65,7 +66,7 @@ module GithubWebsiteConfig
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.config`",
                   },
                   "index$" => 0,
                 },

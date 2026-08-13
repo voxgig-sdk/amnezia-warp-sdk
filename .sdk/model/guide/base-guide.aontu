@@ -8,6 +8,7 @@ guide: {
   entity: configuration: {
     path: "/api/warp": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.config`")|top
     }
   }
 

@@ -121,7 +121,8 @@ Create a mock client for unit testing — no server required:
 const client = GithubWebsiteSDK.test()
 
 const configuration = await client.Configuration().load()
-// configuration is a bare entity populated with mock response data
+// configuration is the entity, populated with mock response data
+// — call configuration.data() for the record itself
 console.log(configuration)
 ```
 

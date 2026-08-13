@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ GithubWebsiteUtility.registrar = ->(u) {
   u.prepare_params = GithubWebsiteUtilities::PrepareParams
   u.prepare_path = GithubWebsiteUtilities::PreparePath
   u.prepare_query = GithubWebsiteUtilities::PrepareQuery
+  u.graphql_body = GithubWebsiteUtilities::GraphqlBody
+  u.graphql_errors = GithubWebsiteUtilities::GraphqlErrors
   u.result_basic = GithubWebsiteUtilities::ResultBasic
   u.result_body = GithubWebsiteUtilities::ResultBody
   u.result_headers = GithubWebsiteUtilities::ResultHeaders

@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from githubwebsite_sdk.utility.voxgig_struct import voxgig_struct as vs
 from githubwebsite_sdk import GithubWebsiteSDK
-from core import helpers
+from githubwebsite_sdk.core import helpers
 from test import runner
 
 
@@ -56,11 +56,11 @@ def _configuration_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "GITHUBWEBSITE_TEST_CONFIGURATION_ENTID": {},
-        "GITHUBWEBSITE_TEST_LIVE": "FALSE",
+        "GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID": {},
+        "GITHUB_WEBSITE_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("GITHUBWEBSITE_TEST_LIVE") == "TRUE"
+    live = env.get("GITHUB_WEBSITE_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

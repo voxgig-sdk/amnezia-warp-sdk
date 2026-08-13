@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import GithubWebsiteControl
-from core.error import GithubWebsiteError
-from core.result import GithubWebsiteResult
-from core.spec import GithubWebsiteSpec
+from githubwebsite_sdk.config import make_config
+from githubwebsite_sdk.features import _make_feature
+from githubwebsite_sdk.core.control import GithubWebsiteControl
+from githubwebsite_sdk.core.error import GithubWebsiteError
+from githubwebsite_sdk.core.result import GithubWebsiteResult
+from githubwebsite_sdk.core.spec import GithubWebsiteSpec
 
 
 # True when this SDK was generated with the named feature.

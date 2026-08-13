@@ -26,8 +26,8 @@ import {
 describe('ConfigurationEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBWEBSITE_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBWEBSITE_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_WEBSITE_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_WEBSITE_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubWebsiteSDK.test()
@@ -62,7 +62,7 @@ describe('ConfigurationEntity', async () => {
     // LOAD
     const configuration_ref01_ent = client.Configuration()
     const configuration_ref01_match_dt0: any = {}
-    const configuration_ref01_data_dt0 = await configuration_ref01_ent.load(configuration_ref01_match_dt0)
+    const configuration_ref01_data_dt0 = (await configuration_ref01_ent.load(configuration_ref01_match_dt0)).data()
     assert(null != configuration_ref01_data_dt0)
 
 

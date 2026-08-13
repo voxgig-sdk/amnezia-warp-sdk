@@ -34,7 +34,7 @@ client = GithubWebsiteSDK.new
 
 ```ruby
 begin
-  # load returns the bare Configuration record (raises on error).
+  # load returns the ENTITY — call data_get for the Configuration record (raises on error).
   configuration = client.Configuration.load()
   puts configuration
 rescue => err
@@ -117,7 +117,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = GithubWebsiteSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 configuration = client.Configuration.load()
 puts configuration
 ```
@@ -268,7 +269,7 @@ Create an instance: `configuration = client.Configuration`
 #### Example: Load
 
 ```ruby
-# load returns the bare Configuration record (raises on error).
+# load returns the ENTITY — call data_get for the Configuration record (raises on error).
 configuration = client.Configuration.load()
 ```
 

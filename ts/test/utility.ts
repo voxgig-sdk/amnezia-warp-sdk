@@ -62,8 +62,8 @@ function makeCtrl(explain: boolean) {
 // Overrides configuration values with environment variables if available
 function envOverride(m: Record<string, any>) {
   if (
-    'TRUE' === process.env.GITHUBWEBSITE_TEST_LIVE ||
-    'TRUE' === process.env.GITHUBWEBSITE_TEST_OVERRIDE
+    'TRUE' === process.env.GITHUB_WEBSITE_TEST_LIVE ||
+    'TRUE' === process.env.GITHUB_WEBSITE_TEST_OVERRIDE
   ) {
     Object.entries(m).map(n => {
       let envval = process.env[n[0]]
@@ -74,7 +74,7 @@ function envOverride(m: Record<string, any>) {
     })
   }
 
-  m.GITHUBWEBSITE_TEST_EXPLAIN = process.env.GITHUBWEBSITE_TEST_EXPLAIN || m.GITHUBWEBSITE_TEST_EXPLAIN
+  m.GITHUB_WEBSITE_TEST_EXPLAIN = process.env.GITHUB_WEBSITE_TEST_EXPLAIN || m.GITHUB_WEBSITE_TEST_EXPLAIN
 
   return m
 }

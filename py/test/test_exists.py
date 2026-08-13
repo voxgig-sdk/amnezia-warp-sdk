@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# GithubWebsite SDK exists test
 
 import pytest
 from githubwebsite_sdk import GithubWebsiteSDK

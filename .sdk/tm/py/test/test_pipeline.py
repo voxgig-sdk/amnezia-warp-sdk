@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import GithubWebsiteSDK
-from core.error import GithubWebsiteError
-from core.result import GithubWebsiteResult
-from core.response import GithubWebsiteResponse
-from core.spec import GithubWebsiteSpec
-from feature.base_feature import GithubWebsiteBaseFeature
+from projectname_sdk.core.error import GithubWebsiteError
+from projectname_sdk.core.result import GithubWebsiteResult
+from projectname_sdk.core.response import GithubWebsiteResponse
+from projectname_sdk.core.spec import GithubWebsiteSpec
+from projectname_sdk.feature.base_feature import GithubWebsiteBaseFeature
 
 
 def _client():

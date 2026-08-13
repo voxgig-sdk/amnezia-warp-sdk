@@ -23,8 +23,8 @@ module GithubWebsiteTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("GITHUBWEBSITE_TEST_LIVE")
-    override = getenv("GITHUBWEBSITE_TEST_OVERRIDE")
+    live = getenv("GITHUB_WEBSITE_TEST_LIVE")
+    override = getenv("GITHUB_WEBSITE_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module GithubWebsiteTestRunner
       end
     end
 
-    explain = getenv("GITHUBWEBSITE_TEST_EXPLAIN")
-    m["GITHUBWEBSITE_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("GITHUB_WEBSITE_TEST_EXPLAIN")
+    m["GITHUB_WEBSITE_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end
