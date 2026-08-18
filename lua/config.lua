@@ -1,5 +1,8 @@
 -- GithubWebsite SDK configuration
 
+-- Build a fresh, fully materialised config table. Every call rebuilds the
+-- whole structure, so prefer require("config_shared") unless you need a
+-- private copy you intend to mutate.
 local function make_config()
   return {
     main = {
@@ -25,25 +28,16 @@ local function make_config()
       ["configuration"] = {
         ["fields"] = {
           {
-            ["active"] = true,
             ["name"] = "config",
-            ["req"] = false,
             ["type"] = "`$OBJECT`",
-            ["index$"] = 0,
           },
           {
-            ["active"] = true,
             ["name"] = "path",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 1,
           },
           {
-            ["active"] = true,
             ["name"] = "status",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 2,
           },
         },
         ["name"] = "configuration",
@@ -53,7 +47,6 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "GET",
@@ -67,10 +60,8 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.config`",
                 },
-                ["index$"] = 0,
               },
             },
-            ["key$"] = "load",
           },
         },
         ["relations"] = {

@@ -23,8 +23,8 @@ class GithubWebsiteSDK:
         utility = GithubWebsiteUtility()
         self._utility = utility
 
-        from githubwebsite_sdk.config import make_config
-        config = make_config()
+        from githubwebsite_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,

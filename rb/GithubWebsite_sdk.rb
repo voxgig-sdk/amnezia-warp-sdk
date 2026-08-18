@@ -28,7 +28,7 @@ class GithubWebsiteSDK
     utility = GithubWebsiteUtility.new
     @_utility = utility
 
-    config = GithubWebsiteConfig.make_config
+    config = GithubWebsiteConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

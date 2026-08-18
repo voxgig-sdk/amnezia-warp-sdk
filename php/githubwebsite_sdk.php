@@ -40,7 +40,7 @@ class GithubWebsiteSDK
         $utility = new GithubWebsiteUtility();
         $this->_utility = $utility;
 
-        $config = GithubWebsiteConfig::make_config();
+        $config = GithubWebsiteConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

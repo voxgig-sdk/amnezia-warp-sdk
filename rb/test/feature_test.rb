@@ -15,7 +15,7 @@ require_relative "../GithubWebsite_sdk"
 module GithubWebsiteFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = GithubWebsiteConfig.make_config["feature"]
+    f = GithubWebsiteConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

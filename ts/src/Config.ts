@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'https://valokda-amnezia.vercel.app',
+    base: "https://valokda-amnezia.vercel.app",
 
     headers: {
       "content-type": "application/json"
@@ -55,25 +55,16 @@ class Config {
     "configuration": {
       "fields": [
         {
-          "active": true,
           "name": "config",
-          "req": false,
-          "type": "`$OBJECT`",
-          "index$": 0
+          "type": "`$OBJECT`"
         },
         {
-          "active": true,
           "name": "path",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "status",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         }
       ],
       "name": "configuration",
@@ -83,7 +74,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "GET",
@@ -96,11 +86,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.config`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
