@@ -19,6 +19,9 @@ module GithubWebsiteConfig
     {
       "main" => {
         "name" => "GithubWebsite",
+        "slug" => "github-website",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {

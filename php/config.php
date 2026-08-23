@@ -33,6 +33,9 @@ class GithubWebsiteConfig
         return [
             "main" => [
                 "name" => "GithubWebsite",
+                "slug" => "github-website",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
