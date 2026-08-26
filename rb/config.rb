@@ -28,6 +28,7 @@ module GithubWebsiteConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
