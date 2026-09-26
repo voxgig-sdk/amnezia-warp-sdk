@@ -1,4 +1,4 @@
-# GithubWebsite SDK context
+# AmneziaWarp SDK context
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative 'control'
@@ -9,7 +9,7 @@ require_relative 'response'
 require_relative 'error'
 require_relative 'helpers'
 
-class GithubWebsiteContext
+class AmneziaWarpContext
   attr_accessor :id, :out, :client, :utility, :ctrl, :meta, :config,
                 :entopts, :options, :entity, :shared, :opmap,
                 :data, :reqdata, :match, :reqmatch, :point,
@@ -20,59 +20,59 @@ class GithubWebsiteContext
     @id = "C#{rand(10000000..99999999)}"
     @out = {}
 
-    @client = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "client") || basectx&.client
-    @utility = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "utility") || basectx&.utility
+    @client = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "client") || basectx&.client
+    @utility = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "utility") || basectx&.utility
 
-    @ctrl = GithubWebsiteControl.new
-    ctrl_raw = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "ctrl")
+    @ctrl = AmneziaWarpControl.new
+    ctrl_raw = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "ctrl")
     if ctrl_raw.is_a?(Hash)
       @ctrl.throw_err = ctrl_raw["throw"] if ctrl_raw.key?("throw")
       @ctrl.explain = ctrl_raw["explain"] if ctrl_raw["explain"].is_a?(Hash)
       @ctrl.actor = ctrl_raw["actor"] if ctrl_raw.key?("actor")
       @ctrl.paging = ctrl_raw["paging"] if ctrl_raw["paging"].is_a?(Hash)
-    elsif basectx&.ctrl
+    elsif basectx&.ctrl && AmneziaWarpHelpers.get_ctx_prop(ctxmap, "opname").nil?
       @ctrl = basectx.ctrl
     end
 
-    m = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "meta")
+    m = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "meta")
     @meta = m.is_a?(Hash) ? m : (basectx&.meta || {})
 
-    cfg = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "config")
+    cfg = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "config")
     @config = cfg.is_a?(Hash) ? cfg : basectx&.config
 
-    eo = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "entopts")
+    eo = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "entopts")
     @entopts = eo.is_a?(Hash) ? eo : basectx&.entopts
 
-    o = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "options")
+    o = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "options")
     @options = o.is_a?(Hash) ? o : basectx&.options
 
-    e = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "entity")
+    e = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "entity")
     @entity = e || basectx&.entity
 
-    s = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "shared")
+    s = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "shared")
     @shared = s.is_a?(Hash) ? s : basectx&.shared
 
-    om = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "opmap")
+    om = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "opmap")
     @opmap = om.is_a?(Hash) ? om : (basectx&.opmap || {})
 
-    @data = GithubWebsiteHelpers.to_map(GithubWebsiteHelpers.get_ctx_prop(ctxmap, "data")) || {}
-    @reqdata = GithubWebsiteHelpers.to_map(GithubWebsiteHelpers.get_ctx_prop(ctxmap, "reqdata")) || {}
-    @match = GithubWebsiteHelpers.to_map(GithubWebsiteHelpers.get_ctx_prop(ctxmap, "match")) || {}
-    @reqmatch = GithubWebsiteHelpers.to_map(GithubWebsiteHelpers.get_ctx_prop(ctxmap, "reqmatch")) || {}
+    @data = AmneziaWarpHelpers.to_map(AmneziaWarpHelpers.get_ctx_prop(ctxmap, "data")) || {}
+    @reqdata = AmneziaWarpHelpers.to_map(AmneziaWarpHelpers.get_ctx_prop(ctxmap, "reqdata")) || {}
+    @match = AmneziaWarpHelpers.to_map(AmneziaWarpHelpers.get_ctx_prop(ctxmap, "match")) || {}
+    @reqmatch = AmneziaWarpHelpers.to_map(AmneziaWarpHelpers.get_ctx_prop(ctxmap, "reqmatch")) || {}
 
-    pt = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "point")
+    pt = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "point")
     @point = pt.is_a?(Hash) ? pt : basectx&.point
 
-    sp = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "spec")
-    @spec = sp.is_a?(GithubWebsiteSpec) ? sp : basectx&.spec
+    sp = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "spec")
+    @spec = sp.is_a?(AmneziaWarpSpec) ? sp : basectx&.spec
 
-    r = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "result")
-    @result = r.is_a?(GithubWebsiteResult) ? r : basectx&.result
+    r = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "result")
+    @result = r.is_a?(AmneziaWarpResult) ? r : basectx&.result
 
-    rp = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "response")
-    @response = rp.is_a?(GithubWebsiteResponse) ? rp : basectx&.response
+    rp = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "response")
+    @response = rp.is_a?(AmneziaWarpResponse) ? rp : basectx&.response
 
-    opname = GithubWebsiteHelpers.get_ctx_prop(ctxmap, "opname") || ""
+    opname = AmneziaWarpHelpers.get_ctx_prop(ctxmap, "opname") || ""
     @op = resolve_op(opname)
   end
 
@@ -84,7 +84,7 @@ class GithubWebsiteContext
     entname = @entity&.respond_to?(:get_name) ? @entity.get_name : "_"
     cache_key = "#{entname}:#{opname}"
     return @opmap[cache_key] if @opmap[cache_key]
-    return GithubWebsiteOperation.new({}) if opname.empty?
+    return AmneziaWarpOperation.new({}) if opname.empty?
 
     opcfg = VoxgigStruct.getpath(@config, "entity.#{entname}.op.#{opname}")
 
@@ -96,7 +96,7 @@ class GithubWebsiteContext
       points = t if t.is_a?(Array)
     end
 
-    op = GithubWebsiteOperation.new({
+    op = AmneziaWarpOperation.new({
       "entity" => entname,
       "name" => opname,
       "input" => input,
@@ -107,6 +107,6 @@ class GithubWebsiteContext
   end
 
   def make_error(code, msg)
-    GithubWebsiteError.new(code, msg, self)
+    AmneziaWarpError.new(code, msg, self)
   end
 end

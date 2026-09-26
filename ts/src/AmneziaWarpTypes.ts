@@ -1,0 +1,19 @@
+// Typed models for the AmneziaWarp SDK.
+//
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
+// canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
+// @voxgig/apidef VALID_CANON). Do not edit by hand.
+
+export interface Configuration {
+  config?: Record<string, any>
+  path?: string
+  status?: string
+}
+
+export interface ConfigurationLoadMatch {
+  config?: Record<string, any>
+  path?: string
+  status?: string
+}
+

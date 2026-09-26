@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK Configuration entity
+// AmneziaWarp SDK Configuration entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
@@ -83,7 +83,7 @@ class ConfigurationEntity
     public function data_set($args): void
     {
         if ($args) {
-            $this->_data = GithubWebsiteHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_data = AmneziaWarpHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetData");
         }
     }
@@ -103,7 +103,7 @@ class ConfigurationEntity
     public function match_set($args): void
     {
         if ($args) {
-            $this->_match = GithubWebsiteHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_match = AmneziaWarpHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetMatch");
         }
     }
@@ -249,7 +249,7 @@ class ConfigurationEntity
      *   fields) as an assoc-array; a typed ConfigurationLoadMatch names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return Configuration|array The loaded Configuration as an assoc-array at the
-     *   SDK boundary; throws GithubWebsiteError on failure (item-5 convention).
+     *   SDK boundary; throws AmneziaWarpError on failure (item-5 convention).
      */
     public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
@@ -268,7 +268,7 @@ class ConfigurationEntity
                     $this->_match = $ctx->result->resmatch;
                 }
                 if ($ctx->result->resdata) {
-                    $this->_data = GithubWebsiteHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
+                    $this->_data = AmneziaWarpHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
                 }
             }
         });

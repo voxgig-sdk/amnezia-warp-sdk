@@ -1,8 +1,8 @@
-module github.com/voxgig-sdk/github-website-sdk/go-mcp
+module github.com/voxgig-sdk/amnezia-warp-sdk/go-mcp
 
 go 1.25.0
 
-require github.com/voxgig-sdk/github-website-sdk/go v0.0.0
+require github.com/voxgig-sdk/amnezia-warp-sdk/go v0.0.0
 require github.com/modelcontextprotocol/go-sdk v1.6.0
 
 require (
@@ -14,4 +14,4 @@ require (
 	golang.org/x/sys v0.41.0 // indirect
 )
 
-replace github.com/voxgig-sdk/github-website-sdk/go => ../go
+replace github.com/voxgig-sdk/amnezia-warp-sdk/go => ../go

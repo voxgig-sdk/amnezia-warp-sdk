@@ -1,7 +1,7 @@
-# GithubWebsite SDK utility: make_context
+# AmneziaWarp SDK utility: make_context
 require_relative '../core/context'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   MakeContext = ->(ctxmap, basectx) {
-    GithubWebsiteContext.new(ctxmap, basectx)
+    AmneziaWarpContext.new(ctxmap, basectx)
   }
 end

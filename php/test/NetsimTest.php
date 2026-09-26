@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK netsim test
+// AmneziaWarp SDK netsim test
 //
 // Network-behaviour simulation over the offline mock transport. The `test`
 // feature accepts an optional `net` config so unit tests can exercise slow,
@@ -10,7 +10,7 @@ declare(strict_types=1);
 // every generated SDK regardless of its API shape. Mirrors
 // tm/ts/test/netsim.test.ts.
 
-require_once __DIR__ . '/../githubwebsite_sdk.php';
+require_once __DIR__ . '/../amneziawarp_sdk.php';
 require_once __DIR__ . '/Runner.php';
 
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ class NetsimTest extends TestCase
 {
     public function test_offline_simulation_fails_the_request(): void
     {
-        $sdk = GithubWebsiteSDK::test(['net' => ['offline' => true]]);
+        $sdk = AmneziaWarpSDK::test(['net' => ['offline' => true]]);
         $res = $sdk->direct(['path' => '/ping']);
         $this->assertFalse($res['ok'], 'offline network must fail the call');
         $this->assertNotNull($res['err'] ?? null);
@@ -27,7 +27,7 @@ class NetsimTest extends TestCase
 
     public function test_fail_status_simulation_surfaces_the_error_status(): void
     {
-        $sdk = GithubWebsiteSDK::test(['net' => ['failTimes' => 1, 'failStatus' => 503]]);
+        $sdk = AmneziaWarpSDK::test(['net' => ['failTimes' => 1, 'failStatus' => 503]]);
         $res = $sdk->direct(['path' => '/ping']);
         $this->assertFalse($res['ok']);
         $this->assertSame(503, $res['status'], 'simulated failure status is surfaced');
@@ -36,7 +36,7 @@ class NetsimTest extends TestCase
     public function test_latency_simulation_delays_the_request(): void
     {
         $delay = 60;
-        $sdk = GithubWebsiteSDK::test(['net' => ['latency' => $delay]]);
+        $sdk = AmneziaWarpSDK::test(['net' => ['latency' => $delay]]);
         $start = microtime(true);
         $sdk->direct(['path' => '/ping']);
         $elapsed_ms = (microtime(true) - $start) * 1000.0;
@@ -47,7 +47,7 @@ class NetsimTest extends TestCase
 
     public function test_a_plain_test_sdk_still_works_with_no_net_simulation(): void
     {
-        $sdk = GithubWebsiteSDK::test();
+        $sdk = AmneziaWarpSDK::test();
         $this->assertNotNull($sdk);
     }
 }

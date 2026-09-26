@@ -1,8 +1,8 @@
--- GithubWebsite SDK exists test
+-- AmneziaWarp SDK exists test
 
-local sdk = require("github-website_sdk")
+local sdk = require("amnezia-warp_sdk")
 
-describe("GithubWebsiteSDK", function()
+describe("AmneziaWarpSDK", function()
   it("should create test SDK", function()
     local testsdk = sdk.test(nil, nil)
     assert.is_not_nil(testsdk)

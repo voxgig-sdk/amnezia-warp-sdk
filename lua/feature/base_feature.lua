@@ -1,4 +1,4 @@
--- GithubWebsite SDK base feature
+-- AmneziaWarp SDK base feature
 
 local BaseFeature = {}
 BaseFeature.__index = BaseFeature

@@ -1,5 +1,5 @@
 
-import { GithubWebsiteEntityBase } from './GithubWebsiteEntityBase'
+import { AmneziaWarpEntityBase } from './AmneziaWarpEntityBase'
 
 import { Point } from './Point'
 import { Context } from './Context'
@@ -47,7 +47,7 @@ export {
   Response,
   Result,
   Spec,
-  GithubWebsiteEntityBase,
+  AmneziaWarpEntityBase,
 }
 
 

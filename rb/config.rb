@@ -1,6 +1,6 @@
-# GithubWebsite SDK configuration
+# AmneziaWarp SDK configuration
 
-module GithubWebsiteConfig
+module AmneziaWarpConfig
   # Return the process-wide config, built once on first use. The SDK reads
   # the config on every request and never writes to it, so one instance is
   # shared by every client rather than rebuilt per client.
@@ -18,17 +18,71 @@ module GithubWebsiteConfig
   def self.make_config
     {
       "main" => {
-        "name" => "GithubWebsite",
-        "slug" => "github-website",
+        "name" => "AmneziaWarp",
+        "slug" => "amnezia-warp",
         "version" => "0.0.1",
         "target" => "rb",
       },
       "feature" => {
+        "ratelimit" => {
+          "options" => {
+            "active" => false,
+            "burst" => 5,
+            "rate" => 5,
+          },
+          "optspec" => {
+            "now" => "`$FUNCTION`",
+            "sleep" => "`$FUNCTION`",
+          },
+          "strict" => false,
+          "transport" => "wrap",
+        },
+        "retry" => {
+          "options" => {
+            "active" => false,
+            "factor" => 2,
+            "maxDelay" => 2000,
+            "minDelay" => 50,
+            "retries" => 2,
+            "statuses" => [
+              408,
+              425,
+              429,
+              500,
+              502,
+              503,
+              504,
+            ],
+          },
+          "optspec" => {
+            "jitter" => "`$BOOLEAN`",
+            "sleep" => "`$FUNCTION`",
+          },
+          "strict" => false,
+          "transport" => "wrap",
+        },
         "test" => {
           "options" => {
             "active" => false,
           },
+          "optspec" => {
+            "entity" => "`$MAP`",
+            "net" => "`$MAP`",
+          },
+          "strict" => false,
           "transport" => "base",
+        },
+        "timeout" => {
+          "options" => {
+            "active" => false,
+            "ms" => 30000,
+          },
+          "optspec" => {
+            "clearTimer" => "`$FUNCTION`",
+            "setTimer" => "`$FUNCTION`",
+          },
+          "strict" => false,
+          "transport" => "wrap",
         },
       },
       "options" => {
@@ -45,14 +99,17 @@ module GithubWebsiteConfig
           "fields" => [
             {
               "name" => "config",
+              "title" => "Config",
               "type" => "`$OBJECT`",
             },
             {
               "name" => "path",
+              "title" => "Path",
               "type" => "`$STRING`",
             },
             {
               "name" => "status",
+              "title" => "Status",
               "type" => "`$STRING`",
             },
           ],
@@ -63,19 +120,28 @@ module GithubWebsiteConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/warp",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "warp",
+                    },
+                  ],
                   "parts" => [
                     "api",
                     "warp",
                   ],
-                  "select" => {},
+                  "rename" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.config`",
                   },
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -91,6 +157,6 @@ module GithubWebsiteConfig
 
   def self.make_feature(name)
     require_relative 'features'
-    GithubWebsiteFeatures.make_feature(name)
+    AmneziaWarpFeatures.make_feature(name)
   end
 end

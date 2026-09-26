@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: transform_response
+// AmneziaWarp SDK utility: transform_response
 
 require_once __DIR__ . '/../core/Helpers.php';
 
-class GithubWebsiteTransformResponse
+class AmneziaWarpTransformResponse
 {
-    public static function call(GithubWebsiteContext $ctx): mixed
+    public static function call(AmneziaWarpContext $ctx): mixed
     {
         $spec = $ctx->spec;
         $result = $ctx->result;
@@ -18,7 +18,7 @@ class GithubWebsiteTransformResponse
         if ($result === null || !$result->ok) {
             return null;
         }
-        $transform = GithubWebsiteHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'transform'));
+        $transform = AmneziaWarpHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'transform'));
         if (!$transform) {
             return null;
         }

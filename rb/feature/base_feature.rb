@@ -1,6 +1,6 @@
-# GithubWebsite SDK base feature
+# AmneziaWarp SDK base feature
 
-class GithubWebsiteBaseFeature
+class AmneziaWarpBaseFeature
   attr_accessor :version, :name, :active
 
   # Positions this feature when added via the client `extend` option:

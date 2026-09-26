@@ -1,19 +1,19 @@
-# GithubWebsite SDK context
+# AmneziaWarp SDK context
 
 from __future__ import annotations
 import random
 
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
-from projectname_sdk.core.control import GithubWebsiteControl
-from projectname_sdk.core.operation import GithubWebsiteOperation
-from projectname_sdk.core.spec import GithubWebsiteSpec
-from projectname_sdk.core.result import GithubWebsiteResult
-from projectname_sdk.core.response import GithubWebsiteResponse
-from projectname_sdk.core.error import GithubWebsiteError
+from projectname_sdk.core.control import AmneziaWarpControl
+from projectname_sdk.core.operation import AmneziaWarpOperation
+from projectname_sdk.core.spec import AmneziaWarpSpec
+from projectname_sdk.core.result import AmneziaWarpResult
+from projectname_sdk.core.response import AmneziaWarpResponse
+from projectname_sdk.core.error import AmneziaWarpError
 from projectname_sdk.core.helpers import get_ctx_prop, to_map
 
 
-class GithubWebsiteContext:
+class AmneziaWarpContext:
     def __init__(self, ctxmap=None, basectx=None):
         self.id = "C" + str(random.randint(10000000, 99999999))
         self.out = {}
@@ -40,7 +40,7 @@ class GithubWebsiteContext:
             self.utility = None
 
         # Ctrl
-        self.ctrl = GithubWebsiteControl()
+        self.ctrl = AmneziaWarpControl()
         ctrl_raw = get_ctx_prop(ctxmap, "ctrl")
         if isinstance(ctrl_raw, dict):
             if ctrl_raw.get("throw_err") is not None:
@@ -53,7 +53,8 @@ class GithubWebsiteContext:
                 self.ctrl.actor = ctrl_raw["actor"]
             if isinstance(ctrl_raw.get("paging"), dict):
                 self.ctrl.paging = ctrl_raw["paging"]
-        elif basectx is not None and basectx.ctrl is not None:
+        elif (basectx is not None and basectx.ctrl is not None
+              and get_ctx_prop(ctxmap, "opname") is None):
             self.ctrl = basectx.ctrl
 
         # Meta
@@ -137,7 +138,7 @@ class GithubWebsiteContext:
 
         # Spec
         sp = get_ctx_prop(ctxmap, "spec")
-        if isinstance(sp, GithubWebsiteSpec):
+        if isinstance(sp, AmneziaWarpSpec):
             self.spec = sp
         elif basectx is not None:
             self.spec = basectx.spec
@@ -146,7 +147,7 @@ class GithubWebsiteContext:
 
         # Result
         r = get_ctx_prop(ctxmap, "result")
-        if isinstance(r, GithubWebsiteResult):
+        if isinstance(r, AmneziaWarpResult):
             self.result = r
         elif basectx is not None:
             self.result = basectx.result
@@ -155,7 +156,7 @@ class GithubWebsiteContext:
 
         # Response
         rp = get_ctx_prop(ctxmap, "response")
-        if isinstance(rp, GithubWebsiteResponse):
+        if isinstance(rp, AmneziaWarpResponse):
             self.response = rp
         elif basectx is not None:
             self.response = basectx.response
@@ -180,7 +181,7 @@ class GithubWebsiteContext:
             return self.opmap[cache_key]
 
         if opname == "":
-            return GithubWebsiteOperation({})
+            return AmneziaWarpOperation({})
 
         opcfg = vs.getpath(self.config, "entity." + entname + ".op." + opname)
 
@@ -194,7 +195,7 @@ class GithubWebsiteContext:
             if isinstance(t, list):
                 points = t
 
-        op = GithubWebsiteOperation({
+        op = AmneziaWarpOperation({
             "entity": entname,
             "name": opname,
             "input": inpt,
@@ -205,4 +206,4 @@ class GithubWebsiteContext:
         return op
 
     def make_error(self, code, msg):
-        return GithubWebsiteError(code, msg, self)
+        return AmneziaWarpError(code, msg, self)

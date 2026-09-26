@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: prepare_body
+-- AmneziaWarp SDK utility: prepare_body
 
 local function prepare_body_util(ctx)
   local op = ctx.op

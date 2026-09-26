@@ -3,7 +3,7 @@ import { test, describe } from 'node:test'
 import { equal, ok } from 'node:assert'
 
 
-import { GithubWebsiteSDK } from '..'
+import { AmneziaWarpSDK } from '..'
 
 
 // Network-behaviour simulation over the offline mock transport. The `test`
@@ -14,13 +14,13 @@ import { GithubWebsiteSDK } from '..'
 describe('netsim', () => {
 
   test('offline simulation fails the request', async () => {
-    const sdk = GithubWebsiteSDK.test({ net: { offline: true } })
+    const sdk = AmneziaWarpSDK.test({ net: { offline: true } })
     const res: any = await sdk.direct({ path: '/ping' })
     equal(res.ok, false, 'offline network must fail the call')
   })
 
   test('failStatus simulation surfaces the error status', async () => {
-    const sdk = GithubWebsiteSDK.test({ net: { failTimes: 1, failStatus: 503 } })
+    const sdk = AmneziaWarpSDK.test({ net: { failTimes: 1, failStatus: 503 } })
     const res: any = await sdk.direct({ path: '/ping' })
     equal(res.ok, false)
     equal(res.status, 503, 'simulated failure status is surfaced')
@@ -28,7 +28,7 @@ describe('netsim', () => {
 
   test('latency simulation delays the request', async () => {
     const delay = 60
-    const sdk = GithubWebsiteSDK.test({ net: { latency: delay } })
+    const sdk = AmneziaWarpSDK.test({ net: { latency: delay } })
     const start = Date.now()
     await sdk.direct({ path: '/ping' })
     const elapsed = Date.now() - start
@@ -37,7 +37,7 @@ describe('netsim', () => {
   })
 
   test('a plain test SDK still works with no net simulation', async () => {
-    const sdk = GithubWebsiteSDK.test()
+    const sdk = AmneziaWarpSDK.test()
     equal(null !== sdk, true)
   })
 })

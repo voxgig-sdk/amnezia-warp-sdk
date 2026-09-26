@@ -1,6 +1,6 @@
-# GithubWebsite SDK utility: prepare_auth
+# AmneziaWarp SDK utility: prepare_auth
 require_relative 'struct/voxgig_struct'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   HEADER_AUTH = "authorization"
   OPTION_APIKEY = "apikey"
   NOT_FOUND = "__NOTFOUND__"

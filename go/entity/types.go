@@ -1,7 +1,7 @@
-// Typed models for the GithubWebsite SDK.
+// Typed models for the AmneziaWarp SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -9,14 +9,11 @@ package entity
 import (
 	"encoding/json"
 
-	"github.com/voxgig-sdk/github-website-sdk/go/core"
+	"github.com/voxgig-sdk/amnezia-warp-sdk/go/core"
 )
 
 // Configuration is the typed data model for the configuration entity.
 type Configuration struct {
-	Config *map[string]any `json:"config,omitempty"`
-	Path *string `json:"path,omitempty"`
-	Status *string `json:"status,omitempty"`
 }
 
 // ConfigurationLoadMatch is the typed request payload for Configuration.LoadTyped.

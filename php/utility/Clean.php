@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: clean
+// AmneziaWarp SDK utility: clean
 
-class GithubWebsiteClean
+class AmneziaWarpClean
 {
-    public static function call(GithubWebsiteContext $ctx, mixed $val): mixed
+    public static function call(AmneziaWarpContext $ctx, mixed $val): mixed
     {
         return $val;
     }

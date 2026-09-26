@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: prepare_query
+// AmneziaWarp SDK utility: prepare_query
 
-class GithubWebsitePrepareQuery
+class AmneziaWarpPrepareQuery
 {
-    public static function call(GithubWebsiteContext $ctx): array
+    public static function call(AmneziaWarpContext $ctx): array
     {
         $point = $ctx->point;
         $reqmatch = $ctx->reqmatch ?? [];
@@ -22,7 +22,7 @@ class GithubWebsitePrepareQuery
             foreach ($items as $item) {
                 $key = $item[0];
                 $val = $item[1];
-                if ($val !== null && is_string($key) && !in_array($key, $params, true)) {
+                if ($val !== null && is_string($key) && '$action' !== $key && !in_array($key, $params, true)) {
                     $out[$key] = $val;
                 }
             }

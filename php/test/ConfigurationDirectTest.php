@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 // Configuration direct test
 
-require_once __DIR__ . '/../githubwebsite_sdk.php';
+require_once __DIR__ . '/../amneziawarp_sdk.php';
 require_once __DIR__ . '/Runner.php';
 
 use PHPUnit\Framework\TestCase;
@@ -65,16 +65,18 @@ function configuration_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID" => [],
-        "GITHUB_WEBSITE_TEST_LIVE" => "FALSE",
+        "AMNEZIA_WARP_TEST_CONFIGURATION_ENTID" => [],
+        "AMNEZIA_WARP_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["GITHUB_WEBSITE_TEST_LIVE"] === "TRUE";
+    $live = $env["AMNEZIA_WARP_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
-        ];
-        $client = new GithubWebsiteSDK($merged_opts);
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
+        ]);
+        $client = new AmneziaWarpSDK($merged_opts);
         return [
             "client" => $client,
             "calls" => $calls,
@@ -102,7 +104,7 @@ function configuration_direct_setup($mockres)
         ];
     };
 
-    $client = new GithubWebsiteSDK([
+    $client = new AmneziaWarpSDK([
         "base" => "http://localhost:8080",
         "system" => [
             "fetch" => $mock_fetch,

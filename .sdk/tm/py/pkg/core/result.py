@@ -1,10 +1,10 @@
-# GithubWebsite SDK result
+# AmneziaWarp SDK result
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
 
 
-class GithubWebsiteResult:
+class AmneziaWarpResult:
     def __init__(self, resmap=None):
         if resmap is None:
             resmap = {}

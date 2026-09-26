@@ -1,8 +1,8 @@
-# GithubWebsite SDK utility: make_spec
+# AmneziaWarp SDK utility: make_spec
 require_relative 'struct/voxgig_struct'
 require_relative 'graphql'
 require_relative '../core/spec'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   MakeSpec = ->(ctx) {
     if ctx.out["spec"]
       ctx.spec = ctx.out["spec"]
@@ -21,7 +21,7 @@ module GithubWebsiteUtilities
     parts = VoxgigStruct.getprop(point, "parts") if point
     parts = [] unless parts.is_a?(Array)
 
-    ctx.spec = GithubWebsiteSpec.new({
+    ctx.spec = AmneziaWarpSpec.new({
       "base" => base, "prefix" => prefix, "parts" => parts,
       "suffix" => suffix, "step" => "start",
     })

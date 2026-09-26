@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: make_context
+// AmneziaWarp SDK utility: make_context
 
 require_once __DIR__ . '/../core/Context.php';
 
-class GithubWebsiteMakeContext
+class AmneziaWarpMakeContext
 {
-    public static function call(array $ctxmap, ?GithubWebsiteContext $basectx): GithubWebsiteContext
+    public static function call(array $ctxmap, ?AmneziaWarpContext $basectx): AmneziaWarpContext
     {
-        return new GithubWebsiteContext($ctxmap, $basectx);
+        return new AmneziaWarpContext($ctxmap, $basectx);
     }
 }

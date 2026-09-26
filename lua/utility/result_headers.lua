@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: result_headers
+-- AmneziaWarp SDK utility: result_headers
 
 local function result_headers_util(ctx)
   local response = ctx.response

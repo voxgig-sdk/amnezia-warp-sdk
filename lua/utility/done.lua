@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: done
+-- AmneziaWarp SDK utility: done
 
 local function done_util(ctx)
   if ctx.ctrl.explain ~= nil then

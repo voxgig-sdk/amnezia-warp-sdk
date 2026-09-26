@@ -1,5 +1,5 @@
-# GithubWebsite SDK utility: make_response
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: make_response
+module AmneziaWarpUtilities
   MakeResponse = ->(ctx) {
     return ctx.out["response"], nil if ctx.out["response"]
     utility = ctx.utility

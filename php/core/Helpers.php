@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK helpers
+// AmneziaWarp SDK helpers
 
-class GithubWebsiteHelpers
+class AmneziaWarpHelpers
 {
     public static function to_map(mixed $v): ?array
     {

@@ -1,8 +1,8 @@
-# GithubWebsite SDK utility: make_request
+# AmneziaWarp SDK utility: make_request
 
 from __future__ import annotations
-from projectname_sdk.core.response import GithubWebsiteResponse
-from projectname_sdk.core.result import GithubWebsiteResult
+from projectname_sdk.core.response import AmneziaWarpResponse
+from projectname_sdk.core.result import AmneziaWarpResult
 
 
 def make_request_util(ctx):
@@ -16,8 +16,8 @@ def make_request_util(ctx):
     spec = ctx.spec
     utility = ctx.utility
 
-    response = GithubWebsiteResponse({})
-    result = GithubWebsiteResult({})
+    response = AmneziaWarpResponse({})
+    result = AmneziaWarpResult({})
     ctx.result = result
 
     if spec is None:
@@ -42,11 +42,11 @@ def make_request_util(ctx):
     if fetch_err is not None:
         response.err = fetch_err
     elif fetched is None:
-        response = GithubWebsiteResponse({
+        response = AmneziaWarpResponse({
             "err": ctx.make_error("request_no_response", "response: undefined"),
         })
     elif isinstance(fetched, dict):
-        response = GithubWebsiteResponse(fetched)
+        response = AmneziaWarpResponse(fetched)
     else:
         response.err = ctx.make_error("request_invalid_response", "response: invalid type")
 

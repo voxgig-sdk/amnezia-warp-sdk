@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: make_context
+-- AmneziaWarp SDK utility: make_context
 
 local Context = require("core.context")
 

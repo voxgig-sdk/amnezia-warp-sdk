@@ -1,5 +1,5 @@
-# GithubWebsite SDK utility: make_result
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: make_result
+module AmneziaWarpUtilities
   MakeResult = ->(ctx) {
     return ctx.out["result"], nil if ctx.out["result"]
     utility = ctx.utility

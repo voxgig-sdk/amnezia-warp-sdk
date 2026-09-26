@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: param
+// AmneziaWarp SDK utility: param
 
 require_once __DIR__ . '/../core/Helpers.php';
 
-class GithubWebsiteParam
+class AmneziaWarpParam
 {
-    public static function call(GithubWebsiteContext $ctx, mixed $paramdef): mixed
+    public static function call(AmneziaWarpContext $ctx, mixed $paramdef): mixed
     {
         $point = $ctx->point;
         $spec = $ctx->spec;
@@ -26,7 +26,7 @@ class GithubWebsiteParam
 
         $akey = '';
         if ($point) {
-            $alias_map = GithubWebsiteHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'alias'));
+            $alias_map = AmneziaWarpHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'alias'));
             if ($alias_map) {
                 $ak = \Voxgig\Struct\Struct::getprop($alias_map, $key);
                 if (is_string($ak)) {

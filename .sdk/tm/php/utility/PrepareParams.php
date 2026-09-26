@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: prepare_params
+// AmneziaWarp SDK utility: prepare_params
 
-class GithubWebsitePrepareParams
+class AmneziaWarpPrepareParams
 {
-    public static function call(GithubWebsiteContext $ctx): array
+    public static function call(AmneziaWarpContext $ctx): array
     {
         $utility = $ctx->utility;
         $point = $ctx->point;

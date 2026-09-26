@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK spec
+// AmneziaWarp SDK spec
 
-class GithubWebsiteSpec
+class AmneziaWarpSpec
 {
     public array $parts;
     public array $headers;

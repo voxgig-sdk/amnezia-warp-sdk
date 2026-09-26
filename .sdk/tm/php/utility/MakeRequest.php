@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: make_request
+// AmneziaWarp SDK utility: make_request
 
 require_once __DIR__ . '/../core/Response.php';
 require_once __DIR__ . '/../core/Result.php';
 
-class GithubWebsiteMakeRequest
+class AmneziaWarpMakeRequest
 {
-    public static function call(GithubWebsiteContext $ctx): array
+    public static function call(AmneziaWarpContext $ctx): array
     {
         if (isset($ctx->out['request'])) {
             return [$ctx->out['request'], null];
@@ -16,8 +16,8 @@ class GithubWebsiteMakeRequest
 
         $spec = $ctx->spec;
         $utility = $ctx->utility;
-        $response = new GithubWebsiteResponse([]);
-        $result = new GithubWebsiteResult([]);
+        $response = new AmneziaWarpResponse([]);
+        $result = new AmneziaWarpResult([]);
         $ctx->result = $result;
 
         if (!$spec) {
@@ -43,9 +43,9 @@ class GithubWebsiteMakeRequest
         if ($fetch_err) {
             $response->err = $fetch_err;
         } elseif ($fetched === null) {
-            $response = new GithubWebsiteResponse(['err' => $ctx->make_error('request_no_response', 'response: undefined')]);
+            $response = new AmneziaWarpResponse(['err' => $ctx->make_error('request_no_response', 'response: undefined')]);
         } elseif (is_array($fetched)) {
-            $response = new GithubWebsiteResponse($fetched);
+            $response = new AmneziaWarpResponse($fetched);
         } else {
             $response->err = $ctx->make_error('request_invalid_response', 'response: invalid type');
         }

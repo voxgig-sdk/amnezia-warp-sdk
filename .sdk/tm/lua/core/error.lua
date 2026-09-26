@@ -1,13 +1,13 @@
--- GithubWebsite SDK error
+-- AmneziaWarp SDK error
 
-local GithubWebsiteError = {}
-GithubWebsiteError.__index = GithubWebsiteError
+local AmneziaWarpError = {}
+AmneziaWarpError.__index = AmneziaWarpError
 
 
-function GithubWebsiteError.new(code, msg, ctx)
-  local self = setmetatable({}, GithubWebsiteError)
+function AmneziaWarpError.new(code, msg, ctx)
+  local self = setmetatable({}, AmneziaWarpError)
   self.is_sdk_error = true
-  self.sdk = "GithubWebsite"
+  self.sdk = "AmneziaWarp"
   self.code = code or ""
   self.msg = msg or ""
   self.ctx = ctx
@@ -17,14 +17,14 @@ function GithubWebsiteError.new(code, msg, ctx)
 end
 
 
-function GithubWebsiteError:error()
+function AmneziaWarpError:error()
   return self.msg
 end
 
 
-function GithubWebsiteError:__tostring()
+function AmneziaWarpError:__tostring()
   return self.msg
 end
 
 
-return GithubWebsiteError
+return AmneziaWarpError

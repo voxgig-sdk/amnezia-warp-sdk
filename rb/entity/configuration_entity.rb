@@ -1,4 +1,4 @@
-# GithubWebsite SDK Configuration entity
+# AmneziaWarp SDK Configuration entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
@@ -53,7 +53,7 @@ class ConfigurationEntity
 
   def data_set(args)
     if args
-      @_data = GithubWebsiteHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_data = AmneziaWarpHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetData")
     end
   end
@@ -66,7 +66,7 @@ class ConfigurationEntity
 
   def match_set(args)
     if args
-      @_match = GithubWebsiteHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_match = AmneziaWarpHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetMatch")
     end
   end
@@ -177,7 +177,7 @@ class ConfigurationEntity
   #   optional — an entity with no id-like key loads with no match (nil is treated
   #   as an empty match, so client.Configuration.load works with no args).
   # @param ctrl [Object, nil] optional per-call control
-  # @return [Configuration, Hash] the loaded Configuration; raises GithubWebsiteError on failure
+  # @return [Configuration, Hash] the loaded Configuration; raises AmneziaWarpError on failure
   def load(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -192,7 +192,7 @@ class ConfigurationEntity
       if ctx.result
         @_match = ctx.result.resmatch if ctx.result.resmatch
         if ctx.result.resdata
-          @_data = GithubWebsiteHelpers.to_map(VoxgigStruct.clone(ctx.result.resdata)) || {}
+          @_data = AmneziaWarpHelpers.to_map(VoxgigStruct.clone(ctx.result.resdata)) || {}
         end
       end
     end

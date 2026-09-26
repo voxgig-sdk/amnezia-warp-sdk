@@ -1,25 +1,25 @@
-# GithubWebsite SDK utility: make_error
+# AmneziaWarp SDK utility: make_error
 require_relative '../core/operation'
 require_relative '../core/result'
 require_relative '../core/error'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   MakeError = ->(ctx, err) {
     if ctx.nil?
       require_relative '../core/context'
-      ctx = GithubWebsiteContext.new({}, nil)
+      ctx = AmneziaWarpContext.new({}, nil)
     end
-    op = ctx.op || GithubWebsiteOperation.new({})
+    op = ctx.op || AmneziaWarpOperation.new({})
     opname = op.name
     opname = "unknown operation" if opname.empty? || opname == "_"
 
-    result = ctx.result || GithubWebsiteResult.new({})
+    result = ctx.result || AmneziaWarpResult.new({})
     result.ok = false
 
     err = result.err if err.nil?
     err = ctx.make_error("unknown", "unknown error") if err.nil?
 
-    errmsg = err.is_a?(GithubWebsiteError) ? err.msg : err.to_s
-    msg = "GithubWebsiteSDK: #{opname}: #{errmsg}"
+    errmsg = err.is_a?(AmneziaWarpError) ? err.msg : err.to_s
+    msg = "AmneziaWarpSDK: #{opname}: #{errmsg}"
     msg = ctx.utility.clean.call(ctx, msg)
 
     result.err = nil
@@ -29,14 +29,14 @@ module GithubWebsiteUtilities
       ctx.ctrl.explain["err"] = { "message" => msg }
     end
 
-    sdk_err = GithubWebsiteError.new("", msg, ctx)
+    sdk_err = AmneziaWarpError.new("", msg, ctx)
     sdk_err.result = ctx.utility.clean.call(ctx, result)
     sdk_err.spec = ctx.utility.clean.call(ctx, spec)
 
     # Promote the HTTP status to the top level, so a consumer can branch on
     # `err.status` / `err.not_found?` instead of reaching into `err.result`.
     sdk_err.status = result.status.nil? ? -1 : result.status
-    sdk_err.code = err.code if err.is_a?(GithubWebsiteError)
+    sdk_err.code = err.code if err.is_a?(AmneziaWarpError)
 
     ctx.ctrl.err = sdk_err
 

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK configuration
+// AmneziaWarp SDK configuration
 
-class GithubWebsiteConfig
+class AmneziaWarpConfig
 {
     /** @var array<string,mixed>|null */
     private static ?array $shared_config = null;
@@ -32,17 +32,71 @@ class GithubWebsiteConfig
     {
         return [
             "main" => [
-                "name" => "GithubWebsite",
-                "slug" => "github-website",
+                "name" => "AmneziaWarp",
+                "slug" => "amnezia-warp",
                 "version" => "0.0.1",
                 "target" => "php",
             ],
             "feature" => [
+                "ratelimit" => [
+          'options' => [
+            'active' => false,
+            'burst' => 5,
+            'rate' => 5,
+          ],
+          'optspec' => [
+            'now' => '`$FUNCTION`',
+            'sleep' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
+        ],
+                "retry" => [
+          'options' => [
+            'active' => false,
+            'factor' => 2,
+            'maxDelay' => 2000,
+            'minDelay' => 50,
+            'retries' => 2,
+            'statuses' => [
+              408,
+              425,
+              429,
+              500,
+              502,
+              503,
+              504,
+            ],
+          ],
+          'optspec' => [
+            'jitter' => '`$BOOLEAN`',
+            'sleep' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
+        ],
                 "test" => [
           'options' => [
             'active' => false,
           ],
+          'optspec' => [
+            'entity' => '`$MAP`',
+            'net' => '`$MAP`',
+          ],
+          'strict' => false,
           'transport' => 'base',
+        ],
+                "timeout" => [
+          'options' => [
+            'active' => false,
+            'ms' => 30000,
+          ],
+          'optspec' => [
+            'clearTimer' => '`$FUNCTION`',
+            'setTimer' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
         ],
             ],
             "options" => [
@@ -59,14 +113,17 @@ class GithubWebsiteConfig
           'fields' => [
             [
               'name' => 'config',
+              'title' => 'Config',
               'type' => '`$OBJECT`',
             ],
             [
               'name' => 'path',
+              'title' => 'Path',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'status',
+              'title' => 'Status',
               'type' => '`$STRING`',
             ],
           ],
@@ -77,19 +134,28 @@ class GithubWebsiteConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/warp',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'warp',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'warp',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.config`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -106,6 +172,6 @@ class GithubWebsiteConfig
     public static function make_feature(string $name)
     {
         require_once __DIR__ . '/features.php';
-        return GithubWebsiteFeatures::make_feature($name);
+        return AmneziaWarpFeatures::make_feature($name);
     }
 }

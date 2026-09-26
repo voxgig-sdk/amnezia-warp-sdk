@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: make_fetch_def
+-- AmneziaWarp SDK utility: make_fetch_def
 
 local vs = require("utility.struct.struct")
 

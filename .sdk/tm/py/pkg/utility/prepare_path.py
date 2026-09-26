@@ -1,4 +1,4 @@
-# GithubWebsite SDK utility: prepare_path
+# AmneziaWarp SDK utility: prepare_path
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs

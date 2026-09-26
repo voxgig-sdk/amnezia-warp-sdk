@@ -1,5 +1,5 @@
-# GithubWebsite SDK utility: result_headers
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: result_headers
+module AmneziaWarpUtilities
   ResultHeaders = ->(ctx) {
     response = ctx.response
     result = ctx.result

@@ -1,6 +1,6 @@
-# GithubWebsite SDK utility: make_url
+# AmneziaWarp SDK utility: make_url
 require_relative 'struct/voxgig_struct'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   MakeUrl = ->(ctx) {
     spec = ctx.spec
     result = ctx.result

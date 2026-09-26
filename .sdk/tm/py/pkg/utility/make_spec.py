@@ -1,8 +1,8 @@
-# GithubWebsite SDK utility: make_spec
+# AmneziaWarp SDK utility: make_spec
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
-from projectname_sdk.core.spec import GithubWebsiteSpec
+from projectname_sdk.core.spec import AmneziaWarpSpec
 from projectname_sdk.utility.graphql import GRAPHQL_CONTENT_TYPE
 
 
@@ -40,7 +40,7 @@ def make_spec_util(ctx):
         if isinstance(pt, list):
             parts = pt
 
-    ctx.spec = GithubWebsiteSpec({
+    ctx.spec = AmneziaWarpSpec({
         "base": base,
         "prefix": prefix,
         "parts": parts,

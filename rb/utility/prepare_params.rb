@@ -1,6 +1,6 @@
-# GithubWebsite SDK utility: prepare_params
+# AmneziaWarp SDK utility: prepare_params
 require_relative 'struct/voxgig_struct'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   PrepareParams = ->(ctx) {
     utility = ctx.utility
     point = ctx.point

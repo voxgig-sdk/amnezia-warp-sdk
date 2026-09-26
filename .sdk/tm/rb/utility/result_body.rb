@@ -1,5 +1,5 @@
-# GithubWebsite SDK utility: result_body
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: result_body
+module AmneziaWarpUtilities
   ResultBody = ->(ctx) {
     response = ctx.response
     result = ctx.result

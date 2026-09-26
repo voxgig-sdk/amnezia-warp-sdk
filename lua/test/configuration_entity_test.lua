@@ -2,7 +2,7 @@
 
 local json = require("dkjson")
 local vs = require("utility.struct.struct")
-local sdk = require("github-website_sdk")
+local sdk = require("amnezia-warp_sdk")
 local helpers = require("core.helpers")
 local runner = require("test.runner")
 
@@ -29,7 +29,7 @@ describe("ConfigurationEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set AMNEZIA_WARP_TEST_CONFIGURATION_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -84,23 +84,26 @@ function configuration_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID")
+  local entid_env_raw = os.getenv("AMNEZIA_WARP_TEST_CONFIGURATION_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID"] = idmap,
-    ["GITHUB_WEBSITE_TEST_LIVE"] = "FALSE",
-    ["GITHUB_WEBSITE_TEST_EXPLAIN"] = "FALSE",
+    ["AMNEZIA_WARP_TEST_CONFIGURATION_ENTID"] = idmap,
+    ["AMNEZIA_WARP_TEST_LIVE"] = "FALSE",
+    ["AMNEZIA_WARP_TEST_EXPLAIN"] = "FALSE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID"])
+    env["AMNEZIA_WARP_TEST_CONFIGURATION_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["GITHUB_WEBSITE_TEST_LIVE"] == "TRUE" then
+  if env["AMNEZIA_WARP_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
+      -- FIRST, so the generated fields below win: sdk-test-control.json's
+      -- test.client.options adds to the live client, it does not redirect it.
+      runner.live_client_options(),
       {
       },
       extra or {},
@@ -108,13 +111,13 @@ function configuration_basic_setup(extra)
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["GITHUB_WEBSITE_TEST_LIVE"] == "TRUE"
+  local live = env["AMNEZIA_WARP_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["GITHUB_WEBSITE_TEST_EXPLAIN"] == "TRUE",
+    explain = env["AMNEZIA_WARP_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

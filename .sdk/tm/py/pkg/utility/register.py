@@ -1,6 +1,6 @@
-# GithubWebsite SDK utility registration
+# AmneziaWarp SDK utility registration
 
-from projectname_sdk.core.utility_type import GithubWebsiteUtility
+from projectname_sdk.core.utility_type import AmneziaWarpUtility
 
 from projectname_sdk.utility.clean import clean_util
 from projectname_sdk.utility.done import done_util
@@ -68,4 +68,4 @@ def register_all(u):
     u.transform_response = transform_response_util
 
 
-GithubWebsiteUtility._registrar = register_all
+AmneziaWarpUtility._registrar = register_all

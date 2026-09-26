@@ -1,5 +1,5 @@
-# GithubWebsite SDK utility: feature_hook
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: feature_hook
+module AmneziaWarpUtilities
   FeatureHook = ->(ctx, name) {
     return unless ctx.client
     features = ctx.client.features

@@ -1,8 +1,8 @@
-# GithubWebsite Golang SDK
+# AmneziaWarp Golang SDK
 
 
 
-The Golang SDK for the GithubWebsite API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
+The Golang SDK for the AmneziaWarp API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Configuration(nil)` — each with the same small set of operations (`Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
@@ -12,18 +12,18 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client.Config
 
 ## Install
 ```bash
-go get github.com/voxgig-sdk/github-website-sdk/go@latest
+go get github.com/voxgig-sdk/amnezia-warp-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/github-website-sdk/releases) for the available versions.
+release tag — see [Releases](https://github.com/voxgig-sdk/amnezia-warp-sdk/releases) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
 `go/` directory:
 
 ```bash
-go mod edit -replace github.com/voxgig-sdk/github-website-sdk/go=../github-website-sdk/go
+go mod edit -replace github.com/voxgig-sdk/amnezia-warp-sdk/go=../amnezia-warp-sdk/go
 ```
 
 
@@ -44,7 +44,7 @@ package main
 
 import (
     "fmt"
-    sdk "github.com/voxgig-sdk/github-website-sdk/go"
+    sdk "github.com/voxgig-sdk/amnezia-warp-sdk/go"
 )
 
 func main() {
@@ -160,7 +160,7 @@ mockFetch := func(url string, init map[string]any) (map[string]any, error) {
     }, nil
 }
 
-client := sdk.NewGithubWebsiteSDK(map[string]any{
+client := sdk.NewAmneziaWarpSDK(map[string]any{
     "base": "http://localhost:8080",
     "system": map[string]any{
         "fetch": (func(string, map[string]any) (map[string]any, error))(mockFetch),
@@ -173,7 +173,7 @@ client := sdk.NewGithubWebsiteSDK(map[string]any{
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB_WEBSITE_TEST_LIVE=TRUE
+AMNEZIA_WARP_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -185,10 +185,10 @@ cd go && go test ./test/...
 
 ## Reference
 
-### NewGithubWebsiteSDK
+### NewAmneziaWarpSDK
 
 ```go
-func NewGithubWebsiteSDK(options map[string]any) *GithubWebsiteSDK
+func NewAmneziaWarpSDK(options map[string]any) *AmneziaWarpSDK
 ```
 
 Creates a new SDK client.
@@ -205,12 +205,12 @@ Creates a new SDK client.
 ### TestSDK
 
 ```go
-func TestSDK(testopts map[string]any, sdkopts map[string]any) *GithubWebsiteSDK
+func TestSDK(testopts map[string]any, sdkopts map[string]any) *AmneziaWarpSDK
 ```
 
 Creates a test-mode client with mock transport. Both arguments may be `nil`.
 
-### GithubWebsiteSDK methods
+### AmneziaWarpSDK methods
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -218,11 +218,11 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Configuration` | `(data map[string]any) GithubWebsiteEntity` | Create a Configuration entity instance. |
+| `Configuration` | `(data map[string]any) AmneziaWarpEntity` | Create a Configuration entity instance. |
 
-### Entity interface (GithubWebsiteEntity)
+### Entity interface (AmneziaWarpEntity)
 
-All entities implement the `GithubWebsiteEntity` interface.
+All entities implement the `AmneziaWarpEntity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -301,7 +301,7 @@ fmt.Println(configuration) // the loaded record
 
 ## Features
 
-This SDK ships 1 optional features. Each is **inactive until you
+This SDK ships 4 optional features. Each is **inactive until you
 switch it on**, so an SDK you have not configured behaves exactly as if none of
 them existed — no retries, no cache, no logging, no measurable overhead.
 
@@ -310,17 +310,75 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`test`](#test) | In-memory mock transport for testing without a live server |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
+
+> **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
+> transport, so each one wraps whatever is already installed: the order you
+> activate them in IS the nesting order. Activating them as an ordered list
+> rather than a map is what fixes that order.
+
+### ratelimit
+
+Rate limiting.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `burst` | `5` |
+| `rate` | `5` |
+
+Set `feature.ratelimit.active` to enable it, then override any of the options above.
+
+`ratelimit` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
+
+### retry
+
+Retry.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `factor` | `2` |
+| `maxDelay` | `2000` |
+| `minDelay` | `50` |
+| `retries` | `2` |
+| `statuses` | `[408, 425, 429, 500, 502, 503, 504]` |
+
+Set `feature.retry.active` to enable it, then override any of the options above.
+
+`retry` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
 | `active` | `false` |
 
 Set `feature.test.active` to enable it, then override any of the options above.
+
+### timeout
+
+Timeout.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `ms` | `30000` |
+
+Set `feature.timeout.active` to enable it, then override any of the options above.
+
+`timeout` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 
 ## Advanced
@@ -361,7 +419,10 @@ stage names.
 
 The SDK ships with built-in features:
 
-- **TestFeature**: In-memory mock transport for testing without a live server
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -377,8 +438,8 @@ Use `core.ToMapAny()` to safely cast results and nested data.
 ### Package structure
 
 ```
-github.com/voxgig-sdk/github-website-sdk/go/
-├── github-website.go        # Root package — type aliases and constructors
+github.com/voxgig-sdk/amnezia-warp-sdk/go/
+├── amnezia-warp.go        # Root package — type aliases and constructors
 ├── core/               # SDK core — client, types, pipeline
 ├── entity/             # Entity implementations
 ├── feature/            # Built-in features (Base, Test, Log)
@@ -386,7 +447,7 @@ github.com/voxgig-sdk/github-website-sdk/go/
 └── test/               # Test suites
 ```
 
-The root package (`github.com/voxgig-sdk/github-website-sdk/go`) re-exports everything needed
+The root package (`github.com/voxgig-sdk/amnezia-warp-sdk/go`) re-exports everything needed
 for normal use. Import sub-packages only when you need specific types
 like `core.ToMapAny`.
 

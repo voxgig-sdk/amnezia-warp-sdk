@@ -1,5 +1,5 @@
 {
-  "name": "@voxgig-sdk/github-website",
+  "name": "@voxgig-sdk/amnezia-warp-sdk",
   "version": "0.0.1",
   "description": "Unofficial generated TypeScript SDK for the GitHub Website public API. Not affiliated with or endorsed by the upstream API provider.",
   "keywords": [
@@ -8,22 +8,23 @@
     "generated-sdk",
     "openapi",
     "api-client",
-    "github-website"
+    "amnezia-warp"
   ],
-  "homepage": "https://github.com/voxgig-sdk/github-website-sdk#readme",
+  "homepage": "https://github.com/voxgig-sdk/amnezia-warp-sdk#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/voxgig-sdk/github-website-sdk.git"
+    "url": "git+https://github.com/voxgig-sdk/amnezia-warp-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/voxgig-sdk/github-website-sdk/issues"
+    "url": "https://github.com/voxgig-sdk/amnezia-warp-sdk/issues"
   },
-  "main": "dist/GithubWebsiteSDK.js",
+  "main": "dist/AmneziaWarpSDK.js",
   "type": "commonjs",
-  "types": "dist/GithubWebsiteSDK.d.ts",
+  "types": "dist/AmneziaWarpSDK.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "README.md"
   ],
   "scripts": {
     "pretest": "npm run build",
@@ -46,7 +47,6 @@
   "peerDependencies": {},
   "devDependencies": {
     "@types/node": "^25.6.0",
-    "dotenv": "^17.4.2",
     "typescript": "^5.9.3"
   }
 }

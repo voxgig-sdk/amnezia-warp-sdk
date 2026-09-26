@@ -1,7 +1,7 @@
 package core
 
-type GithubWebsiteError struct {
-	IsGithubWebsiteError bool
+type AmneziaWarpError struct {
+	IsAmneziaWarpError bool
 	Sdk              string
 	Code             string
 	Msg              string
@@ -10,16 +10,16 @@ type GithubWebsiteError struct {
 	Spec             any
 }
 
-func NewGithubWebsiteError(code string, msg string, ctx *Context) *GithubWebsiteError {
-	return &GithubWebsiteError{
-		IsGithubWebsiteError: true,
-		Sdk:              "GithubWebsite",
+func NewAmneziaWarpError(code string, msg string, ctx *Context) *AmneziaWarpError {
+	return &AmneziaWarpError{
+		IsAmneziaWarpError: true,
+		Sdk:              "AmneziaWarp",
 		Code:             code,
 		Msg:              msg,
 		Ctx:              ctx,
 	}
 }
 
-func (e *GithubWebsiteError) Error() string {
+func (e *AmneziaWarpError) Error() string {
 	return e.Msg
 }

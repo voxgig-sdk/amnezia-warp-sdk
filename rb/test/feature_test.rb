@@ -1,4 +1,4 @@
-# GithubWebsite SDK feature test
+# AmneziaWarp SDK feature test
 #
 # Behavioural tests for the enterprise features shipped with this SDK.
 # Each block runs only when its feature is present (see has_feature?),
@@ -10,12 +10,12 @@
 
 require "minitest/autorun"
 require "json"
-require_relative "../GithubWebsite_sdk"
+require_relative "../AmneziaWarp_sdk"
 
-module GithubWebsiteFeatureHarness
+module AmneziaWarpFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = GithubWebsiteConfig.shared_config["feature"]
+    f = AmneziaWarpConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 
@@ -123,8 +123,8 @@ module GithubWebsiteFeatureHarness
       @base = base
       @headers = headers
 
-      @utility = GithubWebsiteUtility.new
-      @utility.fetcher = server || GithubWebsiteFeatureHarness.default_server
+      @utility = AmneziaWarpUtility.new
+      @utility.fetcher = server || AmneziaWarpFeatureHarness.default_server
 
       @client = FakeClient.new({ "base" => base, "headers" => headers, "feature" => {} })
 
@@ -138,8 +138,8 @@ module GithubWebsiteFeatureHarness
       # in this SDK). Features self-gate on options["active"].
       features.each do |fspec|
         name = fspec["name"]
-        next unless GithubWebsiteFeatureHarness.has_feature?(name)
-        f = GithubWebsiteFeatures.make_feature(name)
+        next unless AmneziaWarpFeatureHarness.has_feature?(name)
+        f = AmneziaWarpFeatures.make_feature(name)
         fopts = { "active" => true }.merge(fspec["options"] || {})
         @client.options["feature"][name] = fopts
         f.init(@rootctx, fopts)
@@ -167,7 +167,7 @@ module GithubWebsiteFeatureHarness
     # entity op fragment: hook, short-circuit, make*, hook, ...).
     def op(opname: "load", entity: "widget", method: nil, path: nil, query: nil,
            headers: nil, body: nil, ctrl: nil)
-      method ||= GithubWebsiteFeatureHarness.default_method(opname)
+      method ||= AmneziaWarpFeatureHarness.default_method(opname)
 
       ctx = @utility.make_context.call({
         "opname" => opname,
@@ -179,10 +179,10 @@ module GithubWebsiteFeatureHarness
 
       begin
         fire(ctx, "PrePoint")
-        raise ctx.out["point"] if ctx.out["point"].is_a?(GithubWebsiteError)
+        raise ctx.out["point"] if ctx.out["point"].is_a?(AmneziaWarpError)
 
         fire(ctx, "PreSpec")
-        ctx.spec = GithubWebsiteSpec.new({
+        ctx.spec = AmneziaWarpSpec.new({
           "method" => method,
           "base" => @base,
           "path" => path || "/#{entity}",
@@ -205,7 +205,7 @@ module GithubWebsiteFeatureHarness
         }
         fetched, fetch_err = @utility.fetcher.call(ctx, url, fetchdef)
 
-        ctx.response = fetched.is_a?(Hash) ? GithubWebsiteResponse.new(fetched) : nil
+        ctx.response = fetched.is_a?(Hash) ? AmneziaWarpResponse.new(fetched) : nil
         fire(ctx, "PreResponse")
 
         populate_result(ctx, fetched, fetch_err)
@@ -217,7 +217,7 @@ module GithubWebsiteFeatureHarness
         end
         err = (ctx.result && ctx.result.err) || ctx.make_error("op_failed", "operation failed")
         raise err
-      rescue GithubWebsiteError => err
+      rescue AmneziaWarpError => err
         ctx.ctrl.err = err
         fire(ctx, "PreUnexpected")
         { "ok" => false, "error" => err, "result" => ctx.result, "ctx" => ctx }
@@ -240,7 +240,7 @@ module GithubWebsiteFeatureHarness
     end
 
     def populate_result(ctx, fetched, fetch_err)
-      result = GithubWebsiteResult.new({})
+      result = AmneziaWarpResult.new({})
       ctx.result = result
 
       if fetch_err
@@ -274,7 +274,7 @@ end
 
 
 class FeatureTest < Minitest::Test
-  H = GithubWebsiteFeatureHarness
+  H = AmneziaWarpFeatureHarness
 
   def harness(features, server: nil, base: "http://api.test", headers: {})
     H::Harness.new(features, server: server, base: base, headers: headers)
@@ -412,7 +412,7 @@ class FeatureTest < Minitest::Test
     skip_unless_feature("retry")
     clock = H::Clock.new
     server, calls = H.recording_server { |n, _fd|
-      n < 3 ? [nil, GithubWebsiteError.new("boom", "boom")] : [H.make_response(200, { "ok" => true }), nil]
+      n < 3 ? [nil, AmneziaWarpError.new("boom", "boom")] : [H.make_response(200, { "ok" => true }), nil]
     }
     h = harness([fspec("retry",
       "retries" => 2, "minDelay" => 1, "jitter" => false, "sleep" => clock.sleeper)],
@@ -425,7 +425,7 @@ class FeatureTest < Minitest::Test
   def test_retry_exhausted_transport_error_surfaces
     skip_unless_feature("retry")
     clock = H::Clock.new
-    server, calls = H.recording_server { |_n, _fd| [nil, GithubWebsiteError.new("boom", "boom")] }
+    server, calls = H.recording_server { |_n, _fd| [nil, AmneziaWarpError.new("boom", "boom")] }
     h = harness([fspec("retry",
       "retries" => 2, "minDelay" => 1, "jitter" => false, "sleep" => clock.sleeper)],
       server: server)
@@ -909,6 +909,44 @@ class FeatureTest < Minitest::Test
     assert_match(/[?&]cursor=xyz(&|\z)/, calls[0]["url"])
     assert_equal "abc", res["result"].paging["cursor"]
     assert_equal true, res["result"].paging["hasMore"]
+  end
+
+  def test_paging_snake_case_signals_and_ctrl_write_back
+    skip_unless_feature("paging")
+    server, calls = H.recording_server { |n, _fd|
+      body = 1 == n ? { "has_more" => true, "next_cursor" => "c2" } : { "has_more" => false }
+      [H.make_response(200, body), nil]
+    }
+    h = harness([fspec("paging")], server: server)
+    pg = {}
+    ctrl = { "paging" => pg }
+    res = h.op(opname: "list", path: "/w", ctrl: ctrl)
+    assert_equal true, res["result"].paging["hasMore"]
+    assert_equal "c2", res["result"].paging["cursor"]
+    assert_equal "c2", pg["cursor"], "record written back into ctrl"
+    assert_equal true, pg["hasMore"]
+    h.op(opname: "list", path: "/w", ctrl: ctrl)
+    assert_match(/[?&]cursor=c2(&|\z)/, calls[1]["url"])
+    assert_equal false, pg["hasMore"]
+    assert_nil pg["cursor"]
+  end
+
+  def test_paging_continues_from_written_back_next_page
+    skip_unless_feature("paging")
+    server, calls = H.recording_server { |n, _fd|
+      body = 1 == n ? { "next_page" => 2 } : {}
+      [H.make_response(200, body, "x-page" => n.to_s), nil]
+    }
+    h = harness([fspec("paging")], server: server)
+    pg = {}
+    ctrl = { "paging" => pg }
+    h.op(opname: "list", path: "/w", ctrl: ctrl)
+    assert_equal 1, pg["page"]
+    assert_equal 2, pg["nextPage"]
+    assert_equal true, pg["hasMore"]
+    h.op(opname: "list", path: "/w", ctrl: ctrl)
+    assert_match(/[?&]page=2(&|\z)/, calls[1]["url"])
+    assert_equal false, pg["hasMore"]
   end
 
   def test_paging_non_list_op_is_not_paged

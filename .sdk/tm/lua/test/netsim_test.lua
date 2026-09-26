@@ -1,4 +1,4 @@
--- GithubWebsite SDK netsim test
+-- AmneziaWarp SDK netsim test
 --
 -- Network-behaviour simulation over the offline mock transport. The
 -- `test` feature accepts an optional `net` config so unit tests can

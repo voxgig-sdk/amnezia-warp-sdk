@@ -2,7 +2,7 @@
 
 local json = require("dkjson")
 local vs = require("utility.struct.struct")
-local sdk = require("github-website_sdk")
+local sdk = require("amnezia-warp_sdk")
 local helpers = require("core.helpers")
 local runner = require("test.runner")
 
@@ -60,15 +60,22 @@ function configuration_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID"] = {},
-    ["GITHUB_WEBSITE_TEST_LIVE"] = "FALSE",
+    ["AMNEZIA_WARP_TEST_CONFIGURATION_ENTID"] = {},
+    ["AMNEZIA_WARP_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["GITHUB_WEBSITE_TEST_LIVE"] == "TRUE"
+  local live = env["AMNEZIA_WARP_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
     }
+    -- sdk-test-control.json's test.client.options goes UNDER the generated
+    -- fields: it adds to the live client, it does not redirect it.
+    for _k, _v in pairs(runner.live_client_options()) do
+      if merged_opts[_k] == nil then
+        merged_opts[_k] = _v
+      end
+    end
     local client = sdk.new(merged_opts)
     return {
       client = client,

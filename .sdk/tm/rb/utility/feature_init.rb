@@ -1,6 +1,6 @@
-# GithubWebsite SDK utility: feature_init
+# AmneziaWarp SDK utility: feature_init
 require_relative 'struct/voxgig_struct'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   FeatureInit = ->(ctx, f) {
     fname = f.get_name
     fopts = {}

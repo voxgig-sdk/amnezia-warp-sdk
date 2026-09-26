@@ -1,27 +1,27 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: make_error
+// AmneziaWarp SDK utility: make_error
 
 require_once __DIR__ . '/../core/Operation.php';
 require_once __DIR__ . '/../core/Result.php';
 require_once __DIR__ . '/../core/Error.php';
 
-class GithubWebsiteMakeError
+class AmneziaWarpMakeError
 {
-    public static function call(?GithubWebsiteContext $ctx, mixed $err): mixed
+    public static function call(?AmneziaWarpContext $ctx, mixed $err): mixed
     {
         if ($ctx === null) {
             require_once __DIR__ . '/../core/Context.php';
-            $ctx = new GithubWebsiteContext([], null);
+            $ctx = new AmneziaWarpContext([], null);
         }
-        $op = $ctx->op ?? new GithubWebsiteOperation([]);
+        $op = $ctx->op ?? new AmneziaWarpOperation([]);
         $opname = $op->name;
         if ($opname === '' || $opname === '_') {
             $opname = 'unknown operation';
         }
 
-        $result = $ctx->result ?? new GithubWebsiteResult([]);
+        $result = $ctx->result ?? new AmneziaWarpResult([]);
         $result->ok = false;
 
         if ($err === null) {
@@ -31,8 +31,8 @@ class GithubWebsiteMakeError
             $err = $ctx->make_error('unknown', 'unknown error');
         }
 
-        $errmsg = ($err instanceof GithubWebsiteError) ? $err->msg : (string)$err;
-        $msg = "GithubWebsiteSDK: {$opname}: {$errmsg}";
+        $errmsg = ($err instanceof AmneziaWarpError) ? $err->msg : (string)$err;
+        $msg = "AmneziaWarpSDK: {$opname}: {$errmsg}";
         $msg = ($ctx->utility->clean)($ctx, $msg);
 
         $result->err = null;
@@ -42,7 +42,7 @@ class GithubWebsiteMakeError
             $ctx->ctrl->explain['err'] = ['message' => $msg];
         }
 
-        $sdk_err = new GithubWebsiteError('', $msg, $ctx);
+        $sdk_err = new AmneziaWarpError('', $msg, $ctx);
         $sdk_err->result = ($ctx->utility->clean)($ctx, $result);
         $sdk_err->spec = ($ctx->utility->clean)($ctx, $spec);
 
@@ -50,7 +50,7 @@ class GithubWebsiteMakeError
         // on `err->status` / `err->notFound()` rather than reaching into
         // `err->result`.
         $sdk_err->status = null === $result->status ? -1 : (int)$result->status;
-        if ($err instanceof GithubWebsiteError) {
+        if ($err instanceof AmneziaWarpError) {
             $sdk_err->sdk_code = $err->sdk_code;
         }
 

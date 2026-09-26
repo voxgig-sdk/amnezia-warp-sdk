@@ -1,4 +1,4 @@
--- GithubWebsite SDK helpers
+-- AmneziaWarp SDK helpers
 
 local helpers = {}
 

@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility type
+-- AmneziaWarp SDK utility type
 
 local Utility = {}
 Utility.__index = Utility

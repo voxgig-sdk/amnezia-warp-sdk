@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: prepare_auth
+// AmneziaWarp SDK utility: prepare_auth
 
-class GithubWebsitePrepareAuth
+class AmneziaWarpPrepareAuth
 {
     private const HEADER_AUTH = 'authorization';
     private const OPTION_APIKEY = 'apikey';
     private const NOT_FOUND = '__NOTFOUND__';
 
-    public static function call(GithubWebsiteContext $ctx): array
+    public static function call(AmneziaWarpContext $ctx): array
     {
         $spec = $ctx->spec;
         if (!$spec) {

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: make_response
+// AmneziaWarp SDK utility: make_response
 
-class GithubWebsiteMakeResponse
+class AmneziaWarpMakeResponse
 {
-    public static function call(GithubWebsiteContext $ctx): array
+    public static function call(AmneziaWarpContext $ctx): array
     {
         if (isset($ctx->out['response'])) {
             return [$ctx->out['response'], null];

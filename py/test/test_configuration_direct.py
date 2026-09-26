@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from githubwebsite_sdk.utility.voxgig_struct import voxgig_struct as vs
-from githubwebsite_sdk import GithubWebsiteSDK
-from githubwebsite_sdk.core import helpers
+from amneziawarp_sdk.utility.voxgig_struct import voxgig_struct as vs
+from amneziawarp_sdk import AmneziaWarpSDK
+from amneziawarp_sdk.core import helpers
 from test import runner
 
 
@@ -56,16 +56,19 @@ def _configuration_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID": {},
-        "GITHUB_WEBSITE_TEST_LIVE": "FALSE",
+        "AMNEZIA_WARP_TEST_CONFIGURATION_ENTID": {},
+        "AMNEZIA_WARP_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("GITHUB_WEBSITE_TEST_LIVE") == "TRUE"
+    live = env.get("AMNEZIA_WARP_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
-        }
-        client = GithubWebsiteSDK(merged_opts)
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
+        })
+        client = AmneziaWarpSDK(merged_opts)
         return {
             "client": client,
             "calls": calls,
@@ -83,7 +86,7 @@ def _configuration_direct_setup(mockres):
             "body": "mock",
         }, None
 
-    client = GithubWebsiteSDK({
+    client = AmneziaWarpSDK({
         "base": "http://localhost:8080",
         "system": {
             "fetch": mock_fetch,

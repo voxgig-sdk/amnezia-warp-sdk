@@ -1,6 +1,6 @@
-# GithubWebsite SDK control
+# AmneziaWarp SDK control
 
-class GithubWebsiteControl
+class AmneziaWarpControl
   attr_accessor :throw_err, :err, :explain, :actor, :paging
 
   def initialize(opts = {})

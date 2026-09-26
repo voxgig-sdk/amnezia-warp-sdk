@@ -1,10 +1,10 @@
-# GithubWebsite SDK operation
+# AmneziaWarp SDK operation
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
 
 
-class GithubWebsiteOperation:
+class AmneziaWarpOperation:
     def __init__(self, opmap=None):
         if opmap is None:
             opmap = {}

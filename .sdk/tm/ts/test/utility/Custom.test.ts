@@ -2,13 +2,13 @@
 import { test, describe } from 'node:test'
 import { equal } from 'node:assert'
 
-import { GithubWebsiteSDK } from '../..'
+import { AmneziaWarpSDK } from '../..'
 
 
 describe('Custom', () => {
 
   test('basic', async () => {
-    const client = GithubWebsiteSDK.test({}, {
+    const client = AmneziaWarpSDK.test({}, {
       apikey: 'APIKEY01',
 
       // NOTE: original utility.options must remain in place.

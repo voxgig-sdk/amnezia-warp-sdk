@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: make_fetch_def
+// AmneziaWarp SDK utility: make_fetch_def
 
 require_once __DIR__ . '/../core/Result.php';
 
-class GithubWebsiteMakeFetchDef
+class AmneziaWarpMakeFetchDef
 {
-    public static function call(GithubWebsiteContext $ctx): array
+    public static function call(AmneziaWarpContext $ctx): array
     {
         $spec = $ctx->spec;
         if (!$spec) {
@@ -15,7 +15,7 @@ class GithubWebsiteMakeFetchDef
         }
 
         if (!$ctx->result) {
-            $ctx->result = new GithubWebsiteResult([]);
+            $ctx->result = new AmneziaWarpResult([]);
         }
         $spec->step = 'prepare';
 

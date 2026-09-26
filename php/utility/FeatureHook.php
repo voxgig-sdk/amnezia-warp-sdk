@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: feature_hook
+// AmneziaWarp SDK utility: feature_hook
 
-class GithubWebsiteFeatureHook
+class AmneziaWarpFeatureHook
 {
-    public static function call(GithubWebsiteContext $ctx, string $name): void
+    public static function call(AmneziaWarpContext $ctx, string $name): void
     {
         if (!$ctx->client) {
             return;

@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: prepare_auth
+-- AmneziaWarp SDK utility: prepare_auth
 
 local vs = require("utility.struct.struct")
 

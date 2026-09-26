@@ -1,5 +1,5 @@
-# GithubWebsite SDK utility: result_basic
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: result_basic
+module AmneziaWarpUtilities
   ResultBasic = ->(ctx) {
     response = ctx.response
     result = ctx.result
@@ -9,7 +9,7 @@ module GithubWebsiteUtilities
       if result.status >= 400
         msg = "request: #{result.status}: #{result.status_text}"
         if result.err
-          prev = result.err.is_a?(GithubWebsiteError) ? result.err.msg : result.err.to_s
+          prev = result.err.is_a?(AmneziaWarpError) ? result.err.msg : result.err.to_s
           result.err = ctx.make_error("request_status", "#{prev}: #{msg}")
         else
           result.err = ctx.make_error("request_status", msg)

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK error
+// AmneziaWarp SDK error
 
-class GithubWebsiteError extends \Exception
+class AmneziaWarpError extends \Exception
 {
     public bool $is_sdk_error;
     public string $sdk;
@@ -28,7 +28,7 @@ class GithubWebsiteError extends \Exception
     {
         parent::__construct($msg);
         $this->is_sdk_error = true;
-        $this->sdk = 'GithubWebsite';
+        $this->sdk = 'AmneziaWarp';
         $this->sdk_code = $code;
         $this->msg = $msg;
         $this->ctx = $ctx;

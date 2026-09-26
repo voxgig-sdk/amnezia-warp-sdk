@@ -1,4 +1,4 @@
-# GithubWebsite SDK utility: param
+# AmneziaWarp SDK utility: param
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs

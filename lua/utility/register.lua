@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility registration
+-- AmneziaWarp SDK utility registration
 
 local Utility = require("core.utility_type")
 

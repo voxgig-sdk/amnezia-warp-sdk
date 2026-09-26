@@ -1,7 +1,7 @@
-# github-website-mcp
+# amnezia-warp-mcp
 
-[MCP](https://modelcontextprotocol.io) server exposing the GithubWebsite SDK as
-two agent tools — `github-website_list` and `github-website_load` — built on the
+[MCP](https://modelcontextprotocol.io) server exposing the AmneziaWarp SDK as
+two agent tools — `amnezia-warp_list` and `amnezia-warp_load` — built on the
 [official Go MCP SDK](https://github.com/modelcontextprotocol/go-sdk) and the
 sibling Go SDK at `../go`. Runs over **stdio** (default, for spawnable installs)
 or **streamable HTTP** (one shared server for several agents).
@@ -9,28 +9,28 @@ or **streamable HTTP** (one shared server for several agents).
 ## Examples
 
 ```sh
-# 1. Build a native binary (-> dist/<os>-<arch>/github-website-mcp)
+# 1. Build a native binary (-> dist/<os>-<arch>/amnezia-warp-mcp)
 make build
 
 # 2. Provide credentials via the environment
-export GITHUB_WEBSITE_APIKEY=sk_live_xxx
+export AMNEZIA_WARP_APIKEY=sk_live_xxx
 
 # 3a. Install into Claude Code over stdio (most common)
-claude mcp add --scope user github-website \
-  -- /absolute/path/to/github-website-mcp -transport stdio
+claude mcp add --scope user amnezia-warp \
+  -- /absolute/path/to/amnezia-warp-mcp -transport stdio
 
 # 3b. …or run a shared HTTP server instead
-./github-website-mcp -transport http -addr :8080
+./amnezia-warp-mcp -transport http -addr :8080
 ```
 
 Tool-call arguments (what an agent sends):
 
 ```jsonc
-// github-website_list: first page of records
+// amnezia-warp_list: first page of records
 { "entity": "configuration" }
 { "entity": "configuration", "query": { } }
 
-// github-website_load: one record by id
+// amnezia-warp_load: one record by id
 { "entity": "configuration", "query": { "id": 1 } }
 ```
 
@@ -43,25 +43,25 @@ Tool-call arguments (what an agent sends):
 1. **Build** the server from this `go-mcp/` directory:
 
    ```sh
-   make build          # -> dist/<os>-<arch>/github-website-mcp
+   make build          # -> dist/<os>-<arch>/amnezia-warp-mcp
    ```
 
 2. **Set your API key:**
 
    ```sh
-   export GITHUB_WEBSITE_APIKEY=sk_live_xxx
+   export AMNEZIA_WARP_APIKEY=sk_live_xxx
    ```
 
 3. **Install it into Claude Code** (stdio transport):
 
    ```sh
-   claude mcp add --scope user github-website \
-     -- "$PWD"/dist/*/github-website-mcp -transport stdio
+   claude mcp add --scope user amnezia-warp \
+     -- "$PWD"/dist/*/amnezia-warp-mcp -transport stdio
    ```
 
-4. **Restart Claude Code.** The `github-website_list` and `github-website_load` tools now appear
-   in new sessions. Ask the agent to *"list configuration using github-website"*
-   and it calls `github-website_list` with `{"entity":"configuration"}`.
+4. **Restart Claude Code.** The `amnezia-warp_list` and `amnezia-warp_load` tools now appear
+   in new sessions. Ask the agent to *"list configuration using amnezia-warp"*
+   and it calls `amnezia-warp_list` with `{"entity":"configuration"}`.
 
 ## How-to guides
 
@@ -70,8 +70,8 @@ Tool-call arguments (what an agent sends):
 Configuration is read from the environment — nothing is written to disk:
 
 ```sh
-export GITHUB_WEBSITE_APIKEY=sk_live_xxx            # API key
-export GITHUB_WEBSITE_BASE=https://api.example.com  # optional: override the API base URL
+export AMNEZIA_WARP_APIKEY=sk_live_xxx            # API key
+export AMNEZIA_WARP_BASE=https://api.example.com  # optional: override the API base URL
 ```
 
 Set these in the shell that launches the server (or in the `claude mcp add`
@@ -80,13 +80,13 @@ environment) so every tool call is authenticated.
 ### Run as a shared HTTP server
 
 ```sh
-./github-website-mcp -transport http -addr :8080
+./amnezia-warp-mcp -transport http -addr :8080
 ```
 
 Streamable HTTP lets several agents share one running process; stdio (the
 default) spawns a fresh process per client.
 
-### Call the `github-website_list` tool
+### Call the `amnezia-warp_list` tool
 
 Args: `entity` (required), `query` (optional filter map). Returns the first
 page of records as JSON:
@@ -95,7 +95,7 @@ page of records as JSON:
 { "entity": "configuration" }
 ```
 
-### Call the `github-website_load` tool
+### Call the `amnezia-warp_load` tool
 
 Args: `entity` (required), `query` = `{"id":N}` (required). Returns the single
 record as JSON:
@@ -117,8 +117,8 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 
 | Tool | Args | Returns |
 |------|------|---------|
-| `github-website_list` | `entity` (required), `query` (optional map) | First page of records as JSON |
-| `github-website_load` | `entity` (required), `query` = `{id:N}` | Single record as JSON |
+| `amnezia-warp_list` | `entity` (required), `query` (optional map) | First page of records as JSON |
+| `amnezia-warp_load` | `entity` (required), `query` = `{id:N}` | Single record as JSON |
 
 On error, a tool returns an MCP error result (`isError: true`) whose text is the
 failure message (e.g. unknown entity, or an API error).
@@ -146,8 +146,8 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 | Variable | Purpose |
 |----------|---------|
-| `GITHUB_WEBSITE_APIKEY` | API key sent with every request. |
-| `GITHUB_WEBSITE_BASE` | Optional override of the API base URL. |
+| `AMNEZIA_WARP_APIKEY` | API key sent with every request. |
+| `AMNEZIA_WARP_BASE` | Optional override of the API base URL. |
 
 ### Entities
 
@@ -158,7 +158,7 @@ configuration
 ### Smoke test via HTTP (raw JSON-RPC)
 
 ```sh
-./github-website-mcp -transport http -addr :18080 &
+./amnezia-warp-mcp -transport http -addr :18080 &
 
 # initialize, grab the session id
 curl -sN -X POST http://localhost:18080 \
@@ -173,7 +173,7 @@ curl -sN -X POST http://localhost:18080 \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"github-website_load","arguments":{"entity":"configuration","query":{"id":1}}}}'
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"amnezia-warp_load","arguments":{"entity":"configuration","query":{"id":1}}}}'
 ```
 
 ## Explanation

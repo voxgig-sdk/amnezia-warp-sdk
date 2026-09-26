@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: prepare_headers
+-- AmneziaWarp SDK utility: prepare_headers
 
 local vs = require("utility.struct.struct")
 

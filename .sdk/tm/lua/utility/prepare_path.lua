@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: prepare_path
+-- AmneziaWarp SDK utility: prepare_path
 
 local vs = require("utility.struct.struct")
 

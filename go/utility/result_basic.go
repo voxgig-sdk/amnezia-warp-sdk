@@ -3,7 +3,7 @@ package utility
 import (
 	"fmt"
 
-	"github.com/voxgig-sdk/github-website-sdk/go/core"
+	"github.com/voxgig-sdk/amnezia-warp-sdk/go/core"
 )
 
 func resultBasicUtil(ctx *core.Context) *core.Result {

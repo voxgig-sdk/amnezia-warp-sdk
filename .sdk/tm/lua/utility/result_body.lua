@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: result_body
+-- AmneziaWarp SDK utility: result_body
 
 local function result_body_util(ctx)
   local response = ctx.response

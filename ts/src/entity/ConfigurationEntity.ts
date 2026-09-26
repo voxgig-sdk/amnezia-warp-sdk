@@ -1,11 +1,11 @@
 
 import { inspect } from 'node:util'
 
-import { GithubWebsiteEntityBase } from '../GithubWebsiteEntityBase'
+import { AmneziaWarpEntityBase } from '../AmneziaWarpEntityBase'
 
 import type {
-  GithubWebsiteSDK,
-} from '../GithubWebsiteSDK'
+  AmneziaWarpSDK,
+} from '../AmneziaWarpSDK'
 
 
 import type {
@@ -17,12 +17,11 @@ import type {
 import type {
   Configuration,
   ConfigurationLoadMatch,
-} from '../GithubWebsiteTypes'
+} from '../AmneziaWarpTypes'
 
-// TODO: needs Entity superclass
-class ConfigurationEntity extends GithubWebsiteEntityBase<Configuration> {
+class ConfigurationEntity extends AmneziaWarpEntityBase<Configuration> {
 
-  constructor(client: GithubWebsiteSDK, entopts: any) {
+  constructor(client: AmneziaWarpSDK, entopts: any) {
     super(client, entopts)
     this.name = 'configuration'
     this.name_ = 'configuration'
@@ -130,12 +129,6 @@ class ConfigurationEntity extends GithubWebsiteEntityBase<Configuration> {
 
       const out = done(ctx)
 
-      // An operation resolves to the ENTITY, not the raw data — the record
-      // has just been absorbed into this instance and is reached through
-      // data(). `done` still runs: it completes the pipeline and raises on
-      // failure, and when throwing is disabled it hands back the error
-      // payload, which passes through unchanged. See AGENTS.md "Entity
-      // operations return ENTITIES".
       return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err: any) {

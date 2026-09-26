@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: make_request
+-- AmneziaWarp SDK utility: make_request
 
 local Response = require("core.response")
 local Result = require("core.result")

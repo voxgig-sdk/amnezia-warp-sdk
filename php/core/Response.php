@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK response
+// AmneziaWarp SDK response
 
-class GithubWebsiteResponse
+class AmneziaWarpResponse
 {
     public int $status;
     public string $status_text;

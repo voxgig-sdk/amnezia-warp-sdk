@@ -1,4 +1,4 @@
--- GithubWebsite SDK result
+-- AmneziaWarp SDK result
 
 local vs = require("utility.struct.struct")
 

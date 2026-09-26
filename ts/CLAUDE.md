@@ -1,4 +1,4 @@
-# GithubWebsite TypeScript
+# AmneziaWarp TypeScript
 
 This project uses **AGENTS.md** as the operating guide for coding agents.
 

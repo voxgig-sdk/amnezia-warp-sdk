@@ -1,4 +1,4 @@
-# GithubWebsite SDK utility registration
+# AmneziaWarp SDK utility registration
 require_relative '../core/utility_type'
 require_relative 'clean'
 require_relative 'done'
@@ -31,36 +31,36 @@ require_relative 'result_headers'
 require_relative 'transform_request'
 require_relative 'transform_response'
 
-GithubWebsiteUtility.registrar = ->(u) {
-  u.clean = GithubWebsiteUtilities::Clean
-  u.done = GithubWebsiteUtilities::Done
-  u.make_error = GithubWebsiteUtilities::MakeError
-  u.feature_add = GithubWebsiteUtilities::FeatureAdd
-  u.feature_hook = GithubWebsiteUtilities::FeatureHook
-  u.feature_init = GithubWebsiteUtilities::FeatureInit
-  u.fetcher = GithubWebsiteUtilities::Fetcher
-  u.make_fetch_def = GithubWebsiteUtilities::MakeFetchDef
-  u.make_context = GithubWebsiteUtilities::MakeContext
-  u.make_options = GithubWebsiteUtilities::MakeOptions
-  u.make_request = GithubWebsiteUtilities::MakeRequest
-  u.make_response = GithubWebsiteUtilities::MakeResponse
-  u.make_result = GithubWebsiteUtilities::MakeResult
-  u.make_point = GithubWebsiteUtilities::MakePoint
-  u.make_spec = GithubWebsiteUtilities::MakeSpec
-  u.make_url = GithubWebsiteUtilities::MakeUrl
-  u.param = GithubWebsiteUtilities::Param
-  u.prepare_auth = GithubWebsiteUtilities::PrepareAuth
-  u.prepare_body = GithubWebsiteUtilities::PrepareBody
-  u.prepare_headers = GithubWebsiteUtilities::PrepareHeaders
-  u.prepare_method = GithubWebsiteUtilities::PrepareMethod
-  u.prepare_params = GithubWebsiteUtilities::PrepareParams
-  u.prepare_path = GithubWebsiteUtilities::PreparePath
-  u.prepare_query = GithubWebsiteUtilities::PrepareQuery
-  u.graphql_body = GithubWebsiteUtilities::GraphqlBody
-  u.graphql_errors = GithubWebsiteUtilities::GraphqlErrors
-  u.result_basic = GithubWebsiteUtilities::ResultBasic
-  u.result_body = GithubWebsiteUtilities::ResultBody
-  u.result_headers = GithubWebsiteUtilities::ResultHeaders
-  u.transform_request = GithubWebsiteUtilities::TransformRequest
-  u.transform_response = GithubWebsiteUtilities::TransformResponse
+AmneziaWarpUtility.registrar = ->(u) {
+  u.clean = AmneziaWarpUtilities::Clean
+  u.done = AmneziaWarpUtilities::Done
+  u.make_error = AmneziaWarpUtilities::MakeError
+  u.feature_add = AmneziaWarpUtilities::FeatureAdd
+  u.feature_hook = AmneziaWarpUtilities::FeatureHook
+  u.feature_init = AmneziaWarpUtilities::FeatureInit
+  u.fetcher = AmneziaWarpUtilities::Fetcher
+  u.make_fetch_def = AmneziaWarpUtilities::MakeFetchDef
+  u.make_context = AmneziaWarpUtilities::MakeContext
+  u.make_options = AmneziaWarpUtilities::MakeOptions
+  u.make_request = AmneziaWarpUtilities::MakeRequest
+  u.make_response = AmneziaWarpUtilities::MakeResponse
+  u.make_result = AmneziaWarpUtilities::MakeResult
+  u.make_point = AmneziaWarpUtilities::MakePoint
+  u.make_spec = AmneziaWarpUtilities::MakeSpec
+  u.make_url = AmneziaWarpUtilities::MakeUrl
+  u.param = AmneziaWarpUtilities::Param
+  u.prepare_auth = AmneziaWarpUtilities::PrepareAuth
+  u.prepare_body = AmneziaWarpUtilities::PrepareBody
+  u.prepare_headers = AmneziaWarpUtilities::PrepareHeaders
+  u.prepare_method = AmneziaWarpUtilities::PrepareMethod
+  u.prepare_params = AmneziaWarpUtilities::PrepareParams
+  u.prepare_path = AmneziaWarpUtilities::PreparePath
+  u.prepare_query = AmneziaWarpUtilities::PrepareQuery
+  u.graphql_body = AmneziaWarpUtilities::GraphqlBody
+  u.graphql_errors = AmneziaWarpUtilities::GraphqlErrors
+  u.result_basic = AmneziaWarpUtilities::ResultBasic
+  u.result_body = AmneziaWarpUtilities::ResultBody
+  u.result_headers = AmneziaWarpUtilities::ResultHeaders
+  u.transform_request = AmneziaWarpUtilities::TransformRequest
+  u.transform_response = AmneziaWarpUtilities::TransformResponse
 }

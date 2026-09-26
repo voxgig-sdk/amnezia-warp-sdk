@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/github-website-sdk/go"
-	"github.com/voxgig-sdk/github-website-sdk/go/core"
+	sdk "github.com/voxgig-sdk/amnezia-warp-sdk/go"
+	"github.com/voxgig-sdk/amnezia-warp-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/github-website-sdk/go/utility/struct"
+	vs "github.com/voxgig-sdk/amnezia-warp-sdk/go/utility/struct"
 )
 
 func TestConfigurationEntity(t *testing.T) {
@@ -44,13 +44,13 @@ func TestConfigurationEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set AMNEZIA_WARP_TEST_CONFIGURATION_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		configurationRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.configuration", setup.data)))
+		configurationRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.configuration")))
 		var configurationRef01Data map[string]any
 		if len(configurationRef01DataRaw) > 0 {
 			configurationRef01Data = core.ToMapAny(configurationRef01DataRaw[0][1])
@@ -97,7 +97,7 @@ func configurationBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"configuration01", "configuration02", "configuration03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -110,36 +110,48 @@ func configurationBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID")
+	entidEnvRaw := os.Getenv("AMNEZIA_WARP_TEST_CONFIGURATION_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID": idmap,
-		"GITHUB_WEBSITE_TEST_LIVE":      "FALSE",
-		"GITHUB_WEBSITE_TEST_EXPLAIN":   "FALSE",
+		"AMNEZIA_WARP_TEST_CONFIGURATION_ENTID": idmap,
+		"AMNEZIA_WARP_TEST_LIVE":      "FALSE",
+		"AMNEZIA_WARP_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID"])
+	idmapResolved := core.ToMapAny(env["AMNEZIA_WARP_TEST_CONFIGURATION_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["GITHUB_WEBSITE_TEST_LIVE"] == "TRUE" {
+	if env["AMNEZIA_WARP_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
-		client = sdk.NewGithubWebsiteSDK(core.ToMapAny(mergedOpts))
+		client = sdk.NewAmneziaWarpSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["GITHUB_WEBSITE_TEST_LIVE"] == "TRUE"
+	live := env["AMNEZIA_WARP_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["GITHUB_WEBSITE_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["AMNEZIA_WARP_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

@@ -1,8 +1,8 @@
-# GithubWebsite SDK operation
+# AmneziaWarp SDK operation
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubWebsiteOperation
+class AmneziaWarpOperation
   attr_accessor :entity, :name, :input, :points, :alias_map
 
   def initialize(opmap = {})

@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: feature_add
+-- AmneziaWarp SDK utility: feature_add
 
 -- Features can position themselves relative to an already-added feature
 -- via `_options` ("__before__" / "__after__" / "__replace__"), set by the

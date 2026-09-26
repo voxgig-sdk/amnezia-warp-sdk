@@ -1,4 +1,4 @@
--- GithubWebsite SDK configuration
+-- AmneziaWarp SDK configuration
 
 -- Build a fresh, fully materialised config table. Every call rebuilds the
 -- whole structure, so prefer require("config_shared") unless you need a
@@ -6,17 +6,71 @@
 local function make_config()
   return {
     main = {
-      name = "GithubWebsite",
-      slug = "github-website",
+      name = "AmneziaWarp",
+      slug = "amnezia-warp",
       version = "0.0.1",
       target = "lua",
     },
     feature = {
+      ["ratelimit"] = {
+        ["options"] = {
+          ["active"] = false,
+          ["burst"] = 5,
+          ["rate"] = 5,
+        },
+        ["optspec"] = {
+          ["now"] = "`$FUNCTION`",
+          ["sleep"] = "`$FUNCTION`",
+        },
+        ["strict"] = false,
+        ["transport"] = "wrap",
+      },
+      ["retry"] = {
+        ["options"] = {
+          ["active"] = false,
+          ["factor"] = 2,
+          ["maxDelay"] = 2000,
+          ["minDelay"] = 50,
+          ["retries"] = 2,
+          ["statuses"] = {
+            408,
+            425,
+            429,
+            500,
+            502,
+            503,
+            504,
+          },
+        },
+        ["optspec"] = {
+          ["jitter"] = "`$BOOLEAN`",
+          ["sleep"] = "`$FUNCTION`",
+        },
+        ["strict"] = false,
+        ["transport"] = "wrap",
+      },
       ["test"] = {
         ["options"] = {
           ["active"] = false,
         },
+        ["optspec"] = {
+          ["entity"] = "`$MAP`",
+          ["net"] = "`$MAP`",
+        },
+        ["strict"] = false,
         ["transport"] = "base",
+      },
+      ["timeout"] = {
+        ["options"] = {
+          ["active"] = false,
+          ["ms"] = 30000,
+        },
+        ["optspec"] = {
+          ["clearTimer"] = "`$FUNCTION`",
+          ["setTimer"] = "`$FUNCTION`",
+        },
+        ["strict"] = false,
+        ["transport"] = "wrap",
       },
     },
     options = {
@@ -33,14 +87,17 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "config",
+            ["title"] = "Config",
             ["type"] = "`$OBJECT`",
           },
           {
             ["name"] = "path",
+            ["title"] = "Path",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "status",
+            ["title"] = "Status",
             ["type"] = "`$STRING`",
           },
         },
@@ -51,19 +108,28 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/warp",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "warp",
+                  },
+                },
                 ["parts"] = {
                   "api",
                   "warp",
                 },
-                ["select"] = {},
+                ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.config`",
                 },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },

@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: make_point
+-- AmneziaWarp SDK utility: make_point
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

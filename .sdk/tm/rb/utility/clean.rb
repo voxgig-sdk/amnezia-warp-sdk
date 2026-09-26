@@ -1,4 +1,4 @@
-# GithubWebsite SDK utility: clean
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: clean
+module AmneziaWarpUtilities
   Clean = ->(ctx, val) { val }
 end

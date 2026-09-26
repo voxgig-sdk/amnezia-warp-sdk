@@ -1,4 +1,4 @@
-# GithubWebsite SDK
+# AmneziaWarp SDK
 
 GitHub Website API client, generated from the OpenAPI spec.
 
@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `test` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -26,7 +26,7 @@ call directly, instead of assembling URL paths and query strings. Entities are
 support (`load`):
 
 ```ts
-const client = new GithubWebsiteSDK()
+const client = new AmneziaWarpSDK()
 const configuration = await client.Configuration().load()
 ```
 
@@ -44,7 +44,7 @@ network, and no credentials:
 ```ts
 // The offline mock starts EMPTY — seed it with the records the test needs.
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
-const client = GithubWebsiteSDK.test({
+const client = AmneziaWarpSDK.test({
   entity: {
     configuration: {
       test01: { id: 'test01' },
@@ -60,7 +60,7 @@ console.log(configuration)
 ### Python
 
 ```python
-client = GithubWebsiteSDK.test()
+client = AmneziaWarpSDK.test()
 configuration = client.Configuration().load()
 print(configuration)
 ```
@@ -69,7 +69,7 @@ print(configuration)
 
 ```php
 // Seed fixture data so offline calls resolve without a live server.
-$client = GithubWebsiteSDK::test([
+$client = AmneziaWarpSDK::test([
     "entity" => ["configuration" => ["test01" => []]],
 ]);
 $configuration = $client->Configuration()->load();
@@ -88,7 +88,7 @@ result, err := client.Configuration(nil).Load(
 
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
-client = GithubWebsiteSDK.test({
+client = AmneziaWarpSDK.test({
   "entity" => { "configuration" => { "test01" => {} } },
 })
 configuration = client.Configuration.load()
@@ -105,23 +105,23 @@ local result, err = client:Configuration():load()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/github-website` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-website-sdk/releases) |
-| Python | `voxgig-sdk-github-website` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-website-sdk/releases) |
-| PHP | `voxgig-sdk/github-website` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-website-sdk/releases) |
-| Golang | `github.com/voxgig-sdk/github-website-sdk/go` | `go get github.com/voxgig-sdk/github-website-sdk/go@latest` |
-| Ruby | `voxgig-sdk-github-website` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-website-sdk/releases) |
-| Lua | `voxgig-sdk-github-website` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-website-sdk/releases) |
-| Go CLI | `github.com/voxgig-sdk/github-website-sdk/go-cli` | `go install github.com/voxgig-sdk/github-website-sdk/go-cli/cmd/github-website@latest` |
-| Go MCP server | `github.com/voxgig-sdk/github-website-sdk/go-mcp` | `go get github.com/voxgig-sdk/github-website-sdk/go-mcp@latest` |
+| TypeScript | `@voxgig-sdk/amnezia-warp-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/amnezia-warp-sdk/tags) |
+| Python | `voxgig-sdk-amnezia-warp-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/amnezia-warp-sdk/tags) |
+| PHP | `voxgig-sdk/amnezia-warp-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/amnezia-warp-sdk/tags) |
+| Golang | `github.com/voxgig-sdk/amnezia-warp-sdk/go` | `go get github.com/voxgig-sdk/amnezia-warp-sdk/go@latest` |
+| Ruby | `voxgig-sdk-amnezia-warp-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/amnezia-warp-sdk/tags) |
+| Lua | `voxgig-sdk-amnezia-warp-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/amnezia-warp-sdk/tags) |
+| Go CLI | `github.com/voxgig-sdk/amnezia-warp-sdk/go-cli` | `go install github.com/voxgig-sdk/amnezia-warp-sdk/go-cli/cmd/amnezia-warp@latest` |
+| Go MCP server | `github.com/voxgig-sdk/amnezia-warp-sdk/go-mcp` | `go get github.com/voxgig-sdk/amnezia-warp-sdk/go-mcp@latest` |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { GithubWebsiteSDK } from '@voxgig-sdk/github-website'
+import { AmneziaWarpSDK } from '@voxgig-sdk/amnezia-warp-sdk'
 
-const client = new GithubWebsiteSDK()
+const client = new AmneziaWarpSDK()
 
 // Load configuration data (returns a Configuration)
 const configuration = await client.Configuration().load()
@@ -145,7 +145,7 @@ The generated MCP server exposes every operation in this SDK as an
 can call directly. Build and register it:
 
 ```bash
-cd go-mcp && go build -o github-website-mcp .
+cd go-mcp && go build -o amnezia-warp-mcp .
 ```
 
 Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
@@ -153,8 +153,8 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 ```json
 {
   "mcpServers": {
-    "github-website": {
-      "command": "/abs/path/to/github-website-mcp"
+    "amnezia-warp": {
+      "command": "/abs/path/to/amnezia-warp-mcp"
     }
   }
 }
@@ -176,9 +176,9 @@ own list above for exactly which it supports.
 ### Python
 
 ```python
-from githubwebsite_sdk import GithubWebsiteSDK
+from amneziawarp_sdk import AmneziaWarpSDK
 
-client = GithubWebsiteSDK()
+client = AmneziaWarpSDK()
 
 
 # Load a specific configuration (returns the record, raises on error)
@@ -190,20 +190,20 @@ print(configuration)
 
 ```php
 <?php
-require_once 'githubwebsite_sdk.php';
+require_once 'amneziawarp_sdk.php';
 
-$client = new GithubWebsiteSDK();
+$client = new AmneziaWarpSDK();
 
 
 // Load a specific configuration (returns the ENTITY; call data_get() for the record; throws on error)
 $configuration = $client->Configuration()->load();
-print_r($configuration);
+print_r($configuration->data_get());
 ```
 
 ### Golang
 
 ```go
-import sdk "github.com/voxgig-sdk/github-website-sdk/go"
+import sdk "github.com/voxgig-sdk/amnezia-warp-sdk/go"
 
 client := sdk.New()
 
@@ -218,9 +218,9 @@ fmt.Println(configuration)
 ### Ruby
 
 ```ruby
-require_relative "GithubWebsite_sdk"
+require_relative "AmneziaWarp_sdk"
 
-client = GithubWebsiteSDK.new
+client = AmneziaWarpSDK.new
 
 
 # Load a specific configuration (returns the ENTITY; call data_get for the record)
@@ -231,7 +231,7 @@ puts configuration
 ### Lua
 
 ```lua
-local sdk = require("github-website_sdk")
+local sdk = require("amnezia-warp_sdk")
 
 local client = sdk.new()
 
@@ -340,7 +340,10 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **TestFeature** | In-memory mock transport for testing without a live server |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 
@@ -351,7 +354,7 @@ customizable without forking any upstream tool:
 
 - **The model** (`.sdk/model/`) declares everything this project owns:
   package names, versions, active features, per-target settings. It is
-  written in [aontu](https://github.com/aontu-lang/aontu), a JSON-based
+  written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.

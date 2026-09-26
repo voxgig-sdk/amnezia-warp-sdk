@@ -6,22 +6,10 @@ import (
 	"strings"
 
 	eng "github.com/boru-lang/boru/eng/go"
-	sdk "github.com/voxgig-sdk/github-website-sdk/go"
+	sdk "github.com/voxgig-sdk/amnezia-warp-sdk/go"
 )
 
-// registerSDKWords installs three native boru words bound to the SDK:
-// list / load / update. Each is declared with two overloads matching
-// the signature  [query?:(Node or Scalar) entity:atom]:
-//
-//   [entity:Atom]            — no query (e.g. `list book`)
-//   [query:Any entity:Atom]  — query is any Node or Scalar (e.g.
-//                              `load {id:1} book`, `load 1 book`)
-//
-// The entity slot is /q-quoted so a bareword `book` parses as the
-// Atom "book" rather than dispatching as an undefined word. Both
-// overloads are all-forward (BarrierAllForward), so args are collected
-// from the tokens following the word.
-func registerSDKWords(r *eng.Registry, client *sdk.GithubWebsiteSDK) {
+func registerSDKWords(r *eng.Registry, client *sdk.AmneziaWarpSDK) {
 	for _, op := range []string{"list", "load", "update"} {
 		op := op
 		single := eng.Signature{
@@ -50,7 +38,7 @@ func registerSDKWords(r *eng.Registry, client *sdk.GithubWebsiteSDK) {
 	}
 }
 
-func runOp(client *sdk.GithubWebsiteSDK, op string, query *eng.Value, entityAtom eng.Value) ([]eng.Value, error) {
+func runOp(client *sdk.AmneziaWarpSDK, op string, query *eng.Value, entityAtom eng.Value) ([]eng.Value, error) {
 	entityName, err := eng.AsAtom(entityAtom)
 	if err != nil {
 		return nil, fmt.Errorf("%s: entity argument is not an atom: %w", op, err)
@@ -87,7 +75,7 @@ func runOp(client *sdk.GithubWebsiteSDK, op string, query *eng.Value, entityAtom
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.GithubWebsiteSDK, name string) (sdk.GithubWebsiteEntity, error) {
+func entityFor(client *sdk.AmneziaWarpSDK, name string) (sdk.AmneziaWarpEntity, error) {
 	switch strings.ToLower(name) {
 	case "configuration":
 		return client.Configuration(nil), nil

@@ -1,9 +1,9 @@
 package utility
 
 import (
-	vs "github.com/voxgig-sdk/github-website-sdk/go/utility/struct"
+	vs "github.com/voxgig-sdk/amnezia-warp-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/github-website-sdk/go/core"
+	"github.com/voxgig-sdk/amnezia-warp-sdk/go/core"
 )
 
 func paramUtil(ctx *core.Context, paramdef any) any {

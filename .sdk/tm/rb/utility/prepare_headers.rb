@@ -1,6 +1,6 @@
-# GithubWebsite SDK utility: prepare_headers
+# AmneziaWarp SDK utility: prepare_headers
 require_relative 'struct/voxgig_struct'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   PrepareHeaders = ->(ctx) {
     options = ctx.client.options_map
     headers = VoxgigStruct.getprop(options, "headers")

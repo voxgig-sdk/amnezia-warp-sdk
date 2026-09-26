@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/github-website-sdk/go/core"
+import "github.com/voxgig-sdk/amnezia-warp-sdk/go/core"
 
 func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 	if ctx == nil {
@@ -33,7 +33,7 @@ func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 	}
 
 	errmsg := err.Error()
-	msg := "GithubWebsiteSDK: " + opname + ": " + errmsg
+	msg := "AmneziaWarpSDK: " + opname + ": " + errmsg
 	msg = cleanUtil(ctx, msg).(string)
 
 	result.Err = nil
@@ -46,16 +46,16 @@ func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 		}
 	}
 
-	sdkErr := &core.GithubWebsiteError{
-		IsGithubWebsiteError: true,
-		Sdk:              "GithubWebsite",
+	sdkErr := &core.AmneziaWarpError{
+		IsAmneziaWarpError: true,
+		Sdk:              "AmneziaWarp",
 		Code:             "",
 		Msg:              msg,
 		Ctx:              ctx,
 		Result:           cleanUtil(ctx, result),
 		Spec:             cleanUtil(ctx, spec),
 	}
-	if se, ok := err.(*core.GithubWebsiteError); ok {
+	if se, ok := err.(*core.AmneziaWarpError); ok {
 		sdkErr.Code = se.Code
 	}
 

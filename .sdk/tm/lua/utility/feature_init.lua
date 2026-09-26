@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: feature_init
+-- AmneziaWarp SDK utility: feature_init
 
 local vs = require("utility.struct.struct")
 

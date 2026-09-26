@@ -1,6 +1,6 @@
-# github-website-cli
+# amnezia-warp-cli
 
-boru-driven command-line client **and** interactive REPL for the GithubWebsite
+boru-driven command-line client **and** interactive REPL for the AmneziaWarp
 SDK. Each command line is parsed as a single [boru](https://github.com/boru-lang/boru)
 expression and evaluated against the live API; run it with no arguments to drop
 into a REPL. Built on `github.com/boru-lang/boru/eng/go` and the sibling Go SDK
@@ -9,26 +9,26 @@ at `../go`.
 ## Examples
 
 ```sh
-# 1. Build a native binary (-> dist/<os>-<arch>/github-website-cli)
+# 1. Build a native binary (-> dist/<os>-<arch>/amnezia-warp-cli)
 make build
 
 # 2. See usage (words, entities, env vars)
-./github-website-cli --help
+./amnezia-warp-cli --help
 
 # 3. Provide credentials once, via the environment
-export GITHUB_WEBSITE_APIKEY=sk_live_xxx
+export AMNEZIA_WARP_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./github-website-cli load 1 configuration            # {id:1} shorthand
-./github-website-cli load '{id:1}' configuration       # explicit match map
+./amnezia-warp-cli load 1 configuration            # {id:1} shorthand
+./amnezia-warp-cli load '{id:1}' configuration       # explicit match map
 
 # 5. Override the API base URL for a single call
-GITHUB_WEBSITE_BASE=https://api.example.com ./github-website-cli load 1 configuration
+AMNEZIA_WARP_BASE=https://api.example.com ./amnezia-warp-cli load 1 configuration
 
 # 6. No arguments -> interactive REPL
-./github-website-cli
-github-website> load 1 configuration
-github-website> /quit
+./amnezia-warp-cli
+amnezia-warp> load 1 configuration
+amnezia-warp> /quit
 ```
 
 > The rest of this guide follows the [Diátaxis](https://diataxis.fr) framework:
@@ -40,20 +40,20 @@ github-website> /quit
 1. **Build the binary.** From this `go-cli/` directory:
 
    ```sh
-   make build          # -> dist/<os>-<arch>/github-website-cli
+   make build          # -> dist/<os>-<arch>/amnezia-warp-cli
    ```
 
 2. **Set your API key** (read from the environment):
 
    ```sh
-   export GITHUB_WEBSITE_APIKEY=sk_live_xxx
+   export AMNEZIA_WARP_APIKEY=sk_live_xxx
    ```
 
 3. **Run a query.** Evaluate an boru expression against the API (or run with no
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/github-website-cli load 1 configuration
+   ./dist/*/amnezia-warp-cli load 1 configuration
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -66,8 +66,8 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 ### Load a single record
 
 ```sh
-./github-website-cli load 1 configuration          # scalar shorthand for {id:1}
-./github-website-cli load '{id:1}' configuration     # explicit match map
+./amnezia-warp-cli load 1 configuration          # scalar shorthand for {id:1}
+./amnezia-warp-cli load '{id:1}' configuration     # explicit match map
 ```
 
 The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
@@ -78,23 +78,23 @@ The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
 Configuration is read from the environment — nothing is written to disk:
 
 ```sh
-export GITHUB_WEBSITE_APIKEY=sk_live_xxx            # API key
-export GITHUB_WEBSITE_BASE=https://api.example.com  # optional: override the API base URL
-./github-website-cli load 1 configuration
+export AMNEZIA_WARP_APIKEY=sk_live_xxx            # API key
+export AMNEZIA_WARP_BASE=https://api.example.com  # optional: override the API base URL
+./amnezia-warp-cli load 1 configuration
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
 
 ### Explore interactively with the REPL
 
-Run with no arguments to open a REPL (prompt `github-website>`). Each line is
+Run with no arguments to open a REPL (prompt `amnezia-warp>`). Each line is
 evaluated as its own boru expression:
 
 ```text
-$ ./github-website-cli
-github-website> load 1 configuration
-github-website> /help
-github-website> /quit
+$ ./amnezia-warp-cli
+amnezia-warp> load 1 configuration
+amnezia-warp> /help
+amnezia-warp> /quit
 ```
 
 ### Cross-compile release binaries
@@ -127,8 +127,8 @@ The CLI registers these boru words, each bound to the SDK:
 
 | Variable | Purpose |
 |----------|---------|
-| `GITHUB_WEBSITE_APIKEY` | API key sent with every request. |
-| `GITHUB_WEBSITE_BASE` | Optional override of the API base URL. |
+| `AMNEZIA_WARP_APIKEY` | API key sent with every request. |
+| `AMNEZIA_WARP_BASE` | Optional override of the API base URL. |
 
 Unset variables fall back to the SDK's built-in defaults.
 
@@ -154,7 +154,7 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 | Target | Result |
 |--------|--------|
-| `make build` | Native binary at `dist/<os>-<arch>/github-website-cli`. |
+| `make build` | Native binary at `dist/<os>-<arch>/amnezia-warp-cli`. |
 | `make build-all` | linux/darwin/windows x amd64/arm64, each under its own `dist/<os>-<arch>/`. |
 | `make clean` | Remove `dist/` and any stray binaries. |
 
@@ -170,7 +170,7 @@ configuration
 
 The whole command line is one [boru](https://github.com/boru-lang/boru) expression,
 not a fixed `verb --flag` grammar. That means the same binary works one-shot
-(`./github-website-cli <expr>`) and interactively (the REPL), and expressions compose the
+(`./amnezia-warp-cli <expr>`) and interactively (the REPL), and expressions compose the
 same way in both. `list` / `load` / `update` are ordinary boru *words* bound to
 the SDK — adding SDK operations is adding words, not re-parsing flags.
 

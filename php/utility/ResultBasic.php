@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: result_basic
+// AmneziaWarp SDK utility: result_basic
 
-class GithubWebsiteResultBasic
+class AmneziaWarpResultBasic
 {
-    public static function call(GithubWebsiteContext $ctx): ?GithubWebsiteResult
+    public static function call(AmneziaWarpContext $ctx): ?AmneziaWarpResult
     {
         $response = $ctx->response;
         $result = $ctx->result;
@@ -15,7 +15,7 @@ class GithubWebsiteResultBasic
             if ($result->status >= 400) {
                 $msg = "request: {$result->status}: {$result->status_text}";
                 if ($result->err) {
-                    $prev = ($result->err instanceof GithubWebsiteError) ? $result->err->msg : (string)$result->err;
+                    $prev = ($result->err instanceof AmneziaWarpError) ? $result->err->msg : (string)$result->err;
                     $result->err = $ctx->make_error('request_status', "{$prev}: {$msg}");
                 } else {
                     $result->err = $ctx->make_error('request_status', $msg);

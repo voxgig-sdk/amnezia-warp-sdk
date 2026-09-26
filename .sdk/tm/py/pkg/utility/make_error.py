@@ -1,27 +1,27 @@
-# GithubWebsite SDK utility: make_error
+# AmneziaWarp SDK utility: make_error
 
 from __future__ import annotations
-from projectname_sdk.core.operation import GithubWebsiteOperation
-from projectname_sdk.core.result import GithubWebsiteResult
-from projectname_sdk.core.control import GithubWebsiteControl
-from projectname_sdk.core.error import GithubWebsiteError
+from projectname_sdk.core.operation import AmneziaWarpOperation
+from projectname_sdk.core.result import AmneziaWarpResult
+from projectname_sdk.core.control import AmneziaWarpControl
+from projectname_sdk.core.error import AmneziaWarpError
 
 
 def make_error_util(ctx, err):
     if ctx is None:
-        from projectname_sdk.core.context import GithubWebsiteContext
-        ctx = GithubWebsiteContext({}, None)
+        from projectname_sdk.core.context import AmneziaWarpContext
+        ctx = AmneziaWarpContext({}, None)
 
     op = ctx.op
     if op is None:
-        op = GithubWebsiteOperation({})
+        op = AmneziaWarpOperation({})
     opname = op.name
     if opname == "" or opname == "_":
         opname = "unknown operation"
 
     result = ctx.result
     if result is None:
-        result = GithubWebsiteResult({})
+        result = AmneziaWarpResult({})
     result.ok = False
 
     if err is None:
@@ -30,7 +30,7 @@ def make_error_util(ctx, err):
         err = ctx.make_error("unknown", "unknown error")
 
     errmsg = ""
-    if isinstance(err, GithubWebsiteError):
+    if isinstance(err, AmneziaWarpError):
         errmsg = err.msg
     elif hasattr(err, "msg") and err.msg is not None:
         errmsg = err.msg
@@ -39,7 +39,7 @@ def make_error_util(ctx, err):
     else:
         errmsg = str(err)
 
-    msg = "GithubWebsiteSDK: " + opname + ": " + errmsg
+    msg = "AmneziaWarpSDK: " + opname + ": " + errmsg
     msg = ctx.utility.clean(ctx, msg)
 
     result.err = None
@@ -49,7 +49,7 @@ def make_error_util(ctx, err):
     if ctx.ctrl.explain is not None:
         ctx.ctrl.explain["err"] = {"message": msg}
 
-    sdk_err = GithubWebsiteError("", msg, ctx)
+    sdk_err = AmneziaWarpError("", msg, ctx)
     sdk_err.result = ctx.utility.clean(ctx, result)
     sdk_err.spec = ctx.utility.clean(ctx, spec)
 
@@ -57,7 +57,7 @@ def make_error_util(ctx, err):
     # `err.status` / `err.not_found` instead of reaching into `err.result`.
     sdk_err.status = -1 if result.status is None else result.status
 
-    if isinstance(err, GithubWebsiteError):
+    if isinstance(err, AmneziaWarpError):
         sdk_err.code = err.code
 
     ctx.ctrl.err = sdk_err

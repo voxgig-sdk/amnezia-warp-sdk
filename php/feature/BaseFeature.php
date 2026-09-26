@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK base feature
+// AmneziaWarp SDK base feature
 
-class GithubWebsiteBaseFeature
+class AmneziaWarpBaseFeature
 {
     public string $version;
     public string $name;
@@ -26,18 +26,18 @@ class GithubWebsiteBaseFeature
     public function get_name(): string { return $this->name; }
     public function get_active(): bool { return $this->active; }
 
-    public function init(GithubWebsiteContext $ctx, array $options): void {}
-    public function PostConstruct(GithubWebsiteContext $ctx): void {}
-    public function PostConstructEntity(GithubWebsiteContext $ctx): void {}
-    public function SetData(GithubWebsiteContext $ctx): void {}
-    public function GetData(GithubWebsiteContext $ctx): void {}
-    public function GetMatch(GithubWebsiteContext $ctx): void {}
-    public function SetMatch(GithubWebsiteContext $ctx): void {}
-    public function PrePoint(GithubWebsiteContext $ctx): void {}
-    public function PreSpec(GithubWebsiteContext $ctx): void {}
-    public function PreRequest(GithubWebsiteContext $ctx): void {}
-    public function PreResponse(GithubWebsiteContext $ctx): void {}
-    public function PreResult(GithubWebsiteContext $ctx): void {}
-    public function PreDone(GithubWebsiteContext $ctx): void {}
-    public function PreUnexpected(GithubWebsiteContext $ctx): void {}
+    public function init(AmneziaWarpContext $ctx, array $options): void {}
+    public function PostConstruct(AmneziaWarpContext $ctx): void {}
+    public function PostConstructEntity(AmneziaWarpContext $ctx): void {}
+    public function SetData(AmneziaWarpContext $ctx): void {}
+    public function GetData(AmneziaWarpContext $ctx): void {}
+    public function GetMatch(AmneziaWarpContext $ctx): void {}
+    public function SetMatch(AmneziaWarpContext $ctx): void {}
+    public function PrePoint(AmneziaWarpContext $ctx): void {}
+    public function PreSpec(AmneziaWarpContext $ctx): void {}
+    public function PreRequest(AmneziaWarpContext $ctx): void {}
+    public function PreResponse(AmneziaWarpContext $ctx): void {}
+    public function PreResult(AmneziaWarpContext $ctx): void {}
+    public function PreDone(AmneziaWarpContext $ctx): void {}
+    public function PreUnexpected(AmneziaWarpContext $ctx): void {}
 }

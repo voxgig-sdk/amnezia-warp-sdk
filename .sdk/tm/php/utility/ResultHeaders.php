@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: result_headers
+// AmneziaWarp SDK utility: result_headers
 
-class GithubWebsiteResultHeaders
+class AmneziaWarpResultHeaders
 {
-    public static function call(GithubWebsiteContext $ctx): ?GithubWebsiteResult
+    public static function call(AmneziaWarpContext $ctx): ?AmneziaWarpResult
     {
         $response = $ctx->response;
         $result = $ctx->result;

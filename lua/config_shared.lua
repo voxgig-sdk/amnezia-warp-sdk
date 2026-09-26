@@ -1,4 +1,4 @@
--- GithubWebsite SDK shared configuration
+-- AmneziaWarp SDK shared configuration
 
 local make_config = require("config")
 

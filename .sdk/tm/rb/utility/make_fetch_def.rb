@@ -1,12 +1,12 @@
-# GithubWebsite SDK utility: make_fetch_def
+# AmneziaWarp SDK utility: make_fetch_def
 require_relative 'struct/voxgig_struct'
 require_relative '../core/result'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   MakeFetchDef = ->(ctx) {
     spec = ctx.spec
     return nil, ctx.make_error("fetchdef_no_spec", "Expected context spec property to be defined.") unless spec
 
-    ctx.result = GithubWebsiteResult.new({}) unless ctx.result
+    ctx.result = AmneziaWarpResult.new({}) unless ctx.result
     spec.step = "prepare"
 
     url, err = ctx.utility.make_url.call(ctx)

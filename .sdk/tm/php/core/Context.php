@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK context
+// AmneziaWarp SDK context
 
 require_once __DIR__ . '/Control.php';
 require_once __DIR__ . '/Operation.php';
@@ -11,13 +11,13 @@ require_once __DIR__ . '/Response.php';
 require_once __DIR__ . '/Error.php';
 require_once __DIR__ . '/Helpers.php';
 
-class GithubWebsiteContext
+class AmneziaWarpContext
 {
     public string $id;
     public array $out;
     public mixed $client;
-    public ?GithubWebsiteUtility $utility;
-    public GithubWebsiteControl $ctrl;
+    public ?AmneziaWarpUtility $utility;
+    public AmneziaWarpControl $ctrl;
     public array $meta;
     public ?array $config;
     public ?array $entopts;
@@ -30,21 +30,21 @@ class GithubWebsiteContext
     public array $match;
     public array $reqmatch;
     public ?array $point;
-    public ?GithubWebsiteSpec $spec;
-    public ?GithubWebsiteResult $result;
-    public ?GithubWebsiteResponse $response;
-    public GithubWebsiteOperation $op;
+    public ?AmneziaWarpSpec $spec;
+    public ?AmneziaWarpResult $result;
+    public ?AmneziaWarpResponse $response;
+    public AmneziaWarpOperation $op;
 
     public function __construct(array $ctxmap = [], ?self $basectx = null)
     {
         $this->id = 'C' . random_int(10000000, 99999999);
         $this->out = [];
 
-        $this->client = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'client') ?? ($basectx ? $basectx->client : null);
-        $this->utility = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'utility') ?? ($basectx ? $basectx->utility : null);
+        $this->client = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'client') ?? ($basectx ? $basectx->client : null);
+        $this->utility = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'utility') ?? ($basectx ? $basectx->utility : null);
 
-        $this->ctrl = new GithubWebsiteControl();
-        $ctrl_raw = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'ctrl');
+        $this->ctrl = new AmneziaWarpControl();
+        $ctrl_raw = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'ctrl');
         if (is_array($ctrl_raw)) {
             if (array_key_exists('throw', $ctrl_raw)) {
                 $this->ctrl->throw_err = $ctrl_raw['throw'];
@@ -55,53 +55,57 @@ class GithubWebsiteContext
             if (array_key_exists('actor', $ctrl_raw)) {
                 $this->ctrl->actor = $ctrl_raw['actor'];
             }
-        } elseif ($basectx !== null && $basectx->ctrl !== null) {
+            if (isset($ctrl_raw['paging']) && is_array($ctrl_raw['paging'])) {
+                $this->ctrl->paging = $ctrl_raw['paging'];
+            }
+        } elseif ($basectx !== null && $basectx->ctrl !== null
+            && AmneziaWarpHelpers::get_ctx_prop($ctxmap, "opname") === null) {
             $this->ctrl = $basectx->ctrl;
         }
 
-        $m = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'meta');
+        $m = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'meta');
         $this->meta = is_array($m) ? $m : ($basectx ? $basectx->meta ?? [] : []);
 
-        $cfg = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'config');
+        $cfg = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'config');
         $this->config = is_array($cfg) ? $cfg : ($basectx ? $basectx->config : null);
 
-        $eo = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'entopts');
+        $eo = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'entopts');
         $this->entopts = is_array($eo) ? $eo : ($basectx ? $basectx->entopts : null);
 
-        $o = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'options');
+        $o = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'options');
         $this->options = is_array($o) ? $o : ($basectx ? $basectx->options : null);
 
-        $e = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'entity');
+        $e = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'entity');
         $this->entity = $e ?? ($basectx ? $basectx->entity : null);
 
-        $s = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'shared');
+        $s = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'shared');
         $this->shared = is_array($s) ? $s : ($basectx ? $basectx->shared : null);
 
-        $om = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'opmap');
+        $om = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'opmap');
         $this->opmap = is_array($om) ? $om : ($basectx ? $basectx->opmap ?? [] : []);
 
-        $this->data = GithubWebsiteHelpers::to_map(GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'data')) ?? [];
-        $this->reqdata = GithubWebsiteHelpers::to_map(GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'reqdata')) ?? [];
-        $this->match = GithubWebsiteHelpers::to_map(GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'match')) ?? [];
-        $this->reqmatch = GithubWebsiteHelpers::to_map(GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'reqmatch')) ?? [];
+        $this->data = AmneziaWarpHelpers::to_map(AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'data')) ?? [];
+        $this->reqdata = AmneziaWarpHelpers::to_map(AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'reqdata')) ?? [];
+        $this->match = AmneziaWarpHelpers::to_map(AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'match')) ?? [];
+        $this->reqmatch = AmneziaWarpHelpers::to_map(AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'reqmatch')) ?? [];
 
-        $pt = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'point');
+        $pt = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'point');
         $this->point = is_array($pt) ? $pt : ($basectx ? $basectx->point : null);
 
-        $sp = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'spec');
-        $this->spec = ($sp instanceof GithubWebsiteSpec) ? $sp : ($basectx ? $basectx->spec : null);
+        $sp = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'spec');
+        $this->spec = ($sp instanceof AmneziaWarpSpec) ? $sp : ($basectx ? $basectx->spec : null);
 
-        $r = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'result');
-        $this->result = ($r instanceof GithubWebsiteResult) ? $r : ($basectx ? $basectx->result : null);
+        $r = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'result');
+        $this->result = ($r instanceof AmneziaWarpResult) ? $r : ($basectx ? $basectx->result : null);
 
-        $rp = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'response');
-        $this->response = ($rp instanceof GithubWebsiteResponse) ? $rp : ($basectx ? $basectx->response : null);
+        $rp = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'response');
+        $this->response = ($rp instanceof AmneziaWarpResponse) ? $rp : ($basectx ? $basectx->response : null);
 
-        $opname = GithubWebsiteHelpers::get_ctx_prop($ctxmap, 'opname') ?? '';
+        $opname = AmneziaWarpHelpers::get_ctx_prop($ctxmap, 'opname') ?? '';
         $this->op = $this->resolve_op($opname);
     }
 
-    public function resolve_op(string $opname): GithubWebsiteOperation
+    public function resolve_op(string $opname): AmneziaWarpOperation
     {
         // Cache key is `<entity>:<opname>` so two entities with the same op
         // (e.g. both have a "list") get distinct cached Operations. Keying
@@ -116,7 +120,7 @@ class GithubWebsiteContext
             return $this->opmap[$cacheKey];
         }
         if ($opname === '') {
-            return new GithubWebsiteOperation([]);
+            return new AmneziaWarpOperation([]);
         }
 
         $opcfg = \Voxgig\Struct\Struct::getpath($this->config, "entity.{$entname}.op.{$opname}");
@@ -131,7 +135,7 @@ class GithubWebsiteContext
             }
         }
 
-        $op = new GithubWebsiteOperation([
+        $op = new AmneziaWarpOperation([
             'entity' => $entname,
             'name' => $opname,
             'input' => $input,
@@ -141,8 +145,8 @@ class GithubWebsiteContext
         return $op;
     }
 
-    public function make_error(string $code, string $msg): GithubWebsiteError
+    public function make_error(string $code, string $msg): AmneziaWarpError
     {
-        return new GithubWebsiteError($code, $msg, $this);
+        return new AmneziaWarpError($code, $msg, $this);
     }
 }

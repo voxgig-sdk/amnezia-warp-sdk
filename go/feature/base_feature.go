@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/github-website-sdk/go/core"
+	"github.com/voxgig-sdk/amnezia-warp-sdk/go/core"
 )
 
 type BaseFeature struct {

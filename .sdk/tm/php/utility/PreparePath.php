@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: prepare_path
+// AmneziaWarp SDK utility: prepare_path
 
-class GithubWebsitePreparePath
+class AmneziaWarpPreparePath
 {
-    public static function call(GithubWebsiteContext $ctx): string
+    public static function call(AmneziaWarpContext $ctx): string
     {
         $point = $ctx->point;
         $parts = [];

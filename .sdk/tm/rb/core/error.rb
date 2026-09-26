@@ -1,12 +1,12 @@
-# GithubWebsite SDK error
+# AmneziaWarp SDK error
 
-class GithubWebsiteError < StandardError
+class AmneziaWarpError < StandardError
   attr_accessor :is_sdk_error, :sdk, :code, :msg, :ctx, :result, :spec, :status
 
   def initialize(code = "", msg = "", ctx = nil)
     super(msg)
     @is_sdk_error = true
-    @sdk = "GithubWebsite"
+    @sdk = "AmneziaWarp"
     @code = code
     @msg = msg
     @ctx = ctx

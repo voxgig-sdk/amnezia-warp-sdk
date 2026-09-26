@@ -10,17 +10,71 @@ import (
 func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
-			"name": "GithubWebsite",
-			"slug": "github-website",
+			"name": "AmneziaWarp",
+			"slug": "amnezia-warp",
 			"version": "0.0.1",
 			"target": "go",
 		},
 		"feature": map[string]any{
+			"ratelimit": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"burst": 5,
+					"rate": 5,
+				},
+				"optspec": map[string]any{
+					"now": "`$FUNCTION`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
+			"retry": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"factor": 2,
+					"maxDelay": 2000,
+					"minDelay": 50,
+					"retries": 2,
+					"statuses": []any{
+						408,
+						425,
+						429,
+						500,
+						502,
+						503,
+						504,
+					},
+				},
+				"optspec": map[string]any{
+					"jitter": "`$BOOLEAN`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
 			"test": map[string]any{
 				"options": map[string]any{
 					"active": false,
 				},
+				"optspec": map[string]any{
+					"entity": "`$MAP`",
+					"net": "`$MAP`",
+				},
+				"strict": false,
 				"transport": "base",
+			},
+			"timeout": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"ms": 30000,
+				},
+				"optspec": map[string]any{
+					"clearTimer": "`$FUNCTION`",
+					"setTimer": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
 			},
 		},
 		"options": map[string]any{
@@ -37,14 +91,17 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "config",
+						"title": "Config",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "path",
+						"title": "Path",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "status",
+						"title": "Status",
 						"type": "`$STRING`",
 					},
 				},
@@ -55,19 +112,28 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/warp",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "warp",
+									},
+								},
 								"parts": []any{
 									"api",
 									"warp",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.config`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -78,6 +144,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (
@@ -100,9 +177,21 @@ func SharedConfig() map[string]any {
 
 func makeFeature(name string) Feature {
 	switch name {
+	case "ratelimit":
+		if NewRatelimitFeatureFunc != nil {
+			return NewRatelimitFeatureFunc()
+		}
+	case "retry":
+		if NewRetryFeatureFunc != nil {
+			return NewRetryFeatureFunc()
+		}
 	case "test":
 		if NewTestFeatureFunc != nil {
 			return NewTestFeatureFunc()
+		}
+	case "timeout":
+		if NewTimeoutFeatureFunc != nil {
+			return NewTimeoutFeatureFunc()
 		}
 	default:
 		if NewBaseFeatureFunc != nil {

@@ -5,7 +5,7 @@ import assert from 'node:assert'
 import * as Fs from 'node:fs'
 import * as Path from 'node:path'
 
-import { GithubWebsiteSDK } from '..'
+import { AmneziaWarpSDK } from '..'
 
 
 function findFirstTsBlock(md: string, sectionHeading: string): string | null {
@@ -33,12 +33,12 @@ describe('README example', () => {
     const block = findFirstTsBlock(md, 'Quickstart')
     assert(block, 'No TypeScript code block found under "## Quickstart" in README.md')
 
-    const code = transformForTestMode(block, 'GithubWebsite')
+    const code = transformForTestMode(block, 'AmneziaWarp')
 
     // Run the (transformed) example. Async, so wrap in AsyncFunction.
     const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
     const silentConsole = { log: () => {}, error: () => {}, warn: () => {} }
-    const runner = new AsyncFunction('GithubWebsiteSDK', 'console', code)
+    const runner = new AsyncFunction('AmneziaWarpSDK', 'console', code)
 
     // The example should at least parse and have a valid call shape
     // (every method exists on the SDK and accepts the args shown). A
@@ -48,7 +48,7 @@ describe('README example', () => {
     // ReferenceError, SyntaxError) means the README example is out of
     // sync with the real SDK API and the test should fail.
     try {
-      await runner(GithubWebsiteSDK, silentConsole)
+      await runner(AmneziaWarpSDK, silentConsole)
     } catch (err: any) {
       const msg = String(err?.message ?? err)
       if (/\b(404|Not found)\b/i.test(msg)) return

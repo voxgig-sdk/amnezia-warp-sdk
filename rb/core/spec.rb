@@ -1,6 +1,6 @@
-# GithubWebsite SDK spec
+# AmneziaWarp SDK spec
 
-class GithubWebsiteSpec
+class AmneziaWarpSpec
   attr_accessor :parts, :headers, :alias_map, :base, :prefix, :suffix,
                 :params, :query, :step, :method, :body, :url, :path
 

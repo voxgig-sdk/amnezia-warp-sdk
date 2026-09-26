@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK operation
+// AmneziaWarp SDK operation
 
-class GithubWebsiteOperation
+class AmneziaWarpOperation
 {
     public string $entity;
     public string $name;

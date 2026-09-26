@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: make_url
+// AmneziaWarp SDK utility: make_url
 
-class GithubWebsiteMakeUrl
+class AmneziaWarpMakeUrl
 {
-    public static function call(GithubWebsiteContext $ctx): array
+    public static function call(AmneziaWarpContext $ctx): array
     {
         $spec = $ctx->spec;
         $result = $ctx->result;

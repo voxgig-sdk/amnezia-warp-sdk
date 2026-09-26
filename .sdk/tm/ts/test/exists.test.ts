@@ -3,25 +3,15 @@ import { test, describe } from 'node:test'
 import { equal } from 'node:assert'
 
 
-import { GithubWebsiteSDK } from '..'
+import { AmneziaWarpSDK } from '..'
 
 
 describe('exists', async () => {
 
-  // NOT async, and the assertion is deliberate.
-  //
-  // GithubWebsiteSDK.test() is synchronous — it returns the client, not a promise
-  // — so the `await` here was a no-op. Worse, it hid the weakness of the
-  // assertion: `null !== testsdk` is trivially true for ANY non-null value,
-  // including the promise an `await` would have unwrapped. The test could not
-  // have failed short of test() returning null.
-  //
-  // instanceof is the real check: it fails if test() ever starts returning a
-  // promise, or anything other than a client.
   test('test-mode', () => {
-    const testsdk = GithubWebsiteSDK.test()
-    equal(testsdk instanceof GithubWebsiteSDK, true,
-      'GithubWebsiteSDK.test() must return a client synchronously')
+    const testsdk = AmneziaWarpSDK.test()
+    equal(testsdk instanceof AmneziaWarpSDK, true,
+      'AmneziaWarpSDK.test() must return a client synchronously')
   })
 
 })

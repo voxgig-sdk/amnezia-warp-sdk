@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility type
+// AmneziaWarp SDK utility type
 
-class GithubWebsiteUtility
+class AmneziaWarpUtility
 {
     public mixed $clean = null;
     public mixed $done = null;
@@ -53,9 +53,9 @@ class GithubWebsiteUtility
         }
     }
 
-    public static function copy(GithubWebsiteUtility $src): GithubWebsiteUtility
+    public static function copy(AmneziaWarpUtility $src): AmneziaWarpUtility
     {
-        $u = new GithubWebsiteUtility();
+        $u = new AmneziaWarpUtility();
         $u->clean = $src->clean;
         $u->done = $src->done;
         $u->make_error = $src->make_error;

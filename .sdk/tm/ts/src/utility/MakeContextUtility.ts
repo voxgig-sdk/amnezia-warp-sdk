@@ -1,5 +1,5 @@
 
-import { GithubWebsiteSDK } from '../GithubWebsiteSDK'
+import { AmneziaWarpSDK } from '../AmneziaWarpSDK'
 
 import { Utility } from './Utility'
 

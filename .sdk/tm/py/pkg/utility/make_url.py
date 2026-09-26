@@ -1,4 +1,4 @@
-# GithubWebsite SDK utility: make_url
+# AmneziaWarp SDK utility: make_url
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs

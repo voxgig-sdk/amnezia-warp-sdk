@@ -1,4 +1,4 @@
-# GithubWebsite SDK utility: make_fetch_def
+# AmneziaWarp SDK utility: make_fetch_def
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
@@ -10,9 +10,9 @@ def make_fetch_def_util(ctx):
         return None, ctx.make_error("fetchdef_no_spec",
             "Expected context spec property to be defined.")
 
-    from projectname_sdk.core.result import GithubWebsiteResult
+    from projectname_sdk.core.result import AmneziaWarpResult
     if ctx.result is None:
-        ctx.result = GithubWebsiteResult({})
+        ctx.result = AmneziaWarpResult({})
 
     spec.step = "prepare"
 

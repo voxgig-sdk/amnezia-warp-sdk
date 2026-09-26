@@ -1,13 +1,13 @@
-# GithubWebsite SDK test runner
+# AmneziaWarp SDK test runner
 
 from __future__ import annotations
 import os
 import json
 
-from githubwebsite_sdk.utility.voxgig_struct import voxgig_struct as vs
+from amneziawarp_sdk.utility.voxgig_struct import voxgig_struct as vs
 
 
-class GithubWebsiteTestRunner:
+class AmneziaWarpTestRunner:
     _env = {}
 
     @staticmethod
@@ -27,23 +27,23 @@ class GithubWebsiteTestRunner:
                 continue
             key = line[:eq_idx].strip()
             val = line[eq_idx + 1:].strip()
-            GithubWebsiteTestRunner._env[key] = val
+            AmneziaWarpTestRunner._env[key] = val
 
     @staticmethod
     def getenv(key):
-        val = GithubWebsiteTestRunner._env.get(key)
+        val = AmneziaWarpTestRunner._env.get(key)
         if val is not None:
             return val
         return os.environ.get(key)
 
     @staticmethod
     def env_override(m):
-        live = GithubWebsiteTestRunner.getenv("GITHUB_WEBSITE_TEST_LIVE")
-        override = GithubWebsiteTestRunner.getenv("GITHUB_WEBSITE_TEST_OVERRIDE")
+        live = AmneziaWarpTestRunner.getenv("AMNEZIA_WARP_TEST_LIVE")
+        override = AmneziaWarpTestRunner.getenv("AMNEZIA_WARP_TEST_OVERRIDE")
 
         if live == "TRUE" or override == "TRUE":
             for key in list(m.keys()):
-                envval = GithubWebsiteTestRunner.getenv(key)
+                envval = AmneziaWarpTestRunner.getenv(key)
                 if envval is not None and envval != "":
                     envval = envval.strip()
                     if envval.startswith("{"):
@@ -56,9 +56,9 @@ class GithubWebsiteTestRunner:
                             pass
                     m[key] = envval
 
-        explain = GithubWebsiteTestRunner.getenv("GITHUB_WEBSITE_TEST_EXPLAIN")
+        explain = AmneziaWarpTestRunner.getenv("AMNEZIA_WARP_TEST_EXPLAIN")
         if explain is not None and explain != "":
-            m["GITHUB_WEBSITE_TEST_EXPLAIN"] = explain
+            m["AMNEZIA_WARP_TEST_EXPLAIN"] = explain
 
         return m
 
@@ -70,26 +70,26 @@ class GithubWebsiteTestRunner:
         Returns a dict with the empty-skip default if the file is missing or invalid
         so tests never crash on a bad config.
         """
-        if GithubWebsiteTestRunner._test_control is not None:
-            return GithubWebsiteTestRunner._test_control
+        if AmneziaWarpTestRunner._test_control is not None:
+            return AmneziaWarpTestRunner._test_control
         ctrl_path = os.path.join(os.path.dirname(__file__), "sdk-test-control.json")
         try:
             with open(ctrl_path, "r") as f:
-                GithubWebsiteTestRunner._test_control = json.load(f)
+                AmneziaWarpTestRunner._test_control = json.load(f)
         except (FileNotFoundError, IOError, ValueError):
-            GithubWebsiteTestRunner._test_control = {
+            AmneziaWarpTestRunner._test_control = {
                 "version": 1,
                 "test": {"skip": {
                     "live": {"direct": [], "entityOp": []},
                     "unit": {"direct": [], "entityOp": []},
                 }},
             }
-        return GithubWebsiteTestRunner._test_control
+        return AmneziaWarpTestRunner._test_control
 
     @staticmethod
     def is_control_skipped(kind, name, mode):
         """Check sdk-test-control.json for a skip entry. Returns (skip, reason)."""
-        ctrl = GithubWebsiteTestRunner.load_test_control()
+        ctrl = AmneziaWarpTestRunner.load_test_control()
         skip = ctrl.get("test", {}).get("skip", {}).get(mode, {}) or {}
         items = skip.get(kind, []) or []
         for item in items:
@@ -102,9 +102,37 @@ class GithubWebsiteTestRunner:
         return False, None
 
     @staticmethod
+    def live_client_options():
+        """Extra SDK options every LIVE client is constructed with, from
+        sdk-test-control.json `test.client.options`.
+
+        The generated live client knows two things: the base URL (from the
+        spec) and the credential (from the environment). Everything else
+        about how a particular API wants to be talked to - which features to
+        switch on, and with what settings - is a property of THAT API, known
+        to the project and to nothing in the toolchain.
+
+        Merged UNDER the generated fields, so the suite's own
+        base/apikey/server values win: this ADDS to the live client, it does
+        not redirect it.
+
+        Reserved fields are stripped HERE rather than at each merge site:
+        the generated dict only names a field when the model calls for one,
+        so a "base" in this block would face no competing value and would
+        silently redirect the whole suite - credential included - to another
+        host.
+        """
+        ctrl = AmneziaWarpTestRunner.load_test_control()
+        opts = ctrl.get("test", {}).get("client", {}).get("options")
+        if not isinstance(opts, dict):
+            return {}
+        reserved = ("base", "prefix", "suffix", "server", "apikey", "secret")
+        return {k: v for k, v in opts.items() if k not in reserved}
+
+    @staticmethod
     def live_delay_ms():
         """Per-test live pacing delay (ms); default 500."""
-        ctrl = GithubWebsiteTestRunner.load_test_control()
+        ctrl = AmneziaWarpTestRunner.load_test_control()
         v = ctrl.get("test", {}).get("live", {}).get("delayMs")
         if isinstance(v, int) and v >= 0:
             return v
@@ -138,28 +166,32 @@ class GithubWebsiteTestRunner:
 
 # Module-level convenience functions.
 def load_env_local():
-    GithubWebsiteTestRunner.load_env_local()
+    AmneziaWarpTestRunner.load_env_local()
 
 
 def env_override(m):
-    return GithubWebsiteTestRunner.env_override(m)
+    return AmneziaWarpTestRunner.env_override(m)
 
 
 def entity_data(v):
-    return GithubWebsiteTestRunner.entity_data(v)
+    return AmneziaWarpTestRunner.entity_data(v)
 
 
 def entity_list_to_data(lst):
-    return GithubWebsiteTestRunner.entity_list_to_data(lst)
+    return AmneziaWarpTestRunner.entity_list_to_data(lst)
 
 
 def is_control_skipped(kind, name, mode):
-    return GithubWebsiteTestRunner.is_control_skipped(kind, name, mode)
+    return AmneziaWarpTestRunner.is_control_skipped(kind, name, mode)
 
 
 def load_test_control():
-    return GithubWebsiteTestRunner.load_test_control()
+    return AmneziaWarpTestRunner.load_test_control()
+
+
+def live_client_options():
+    return AmneziaWarpTestRunner.live_client_options()
 
 
 def live_delay_ms():
-    return GithubWebsiteTestRunner.live_delay_ms()
+    return AmneziaWarpTestRunner.live_delay_ms()

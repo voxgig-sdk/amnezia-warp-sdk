@@ -1,14 +1,14 @@
-# GithubWebsite SDK utility: make_request
+# AmneziaWarp SDK utility: make_request
 require_relative '../core/response'
 require_relative '../core/result'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   MakeRequest = ->(ctx) {
     return ctx.out["request"], nil if ctx.out["request"]
 
     spec = ctx.spec
     utility = ctx.utility
-    response = GithubWebsiteResponse.new({})
-    result = GithubWebsiteResult.new({})
+    response = AmneziaWarpResponse.new({})
+    result = AmneziaWarpResult.new({})
     ctx.result = result
 
     return nil, ctx.make_error("request_no_spec", "Expected context spec property to be defined.") unless spec
@@ -30,9 +30,9 @@ module GithubWebsiteUtilities
     if fetch_err
       response.err = fetch_err
     elsif fetched.nil?
-      response = GithubWebsiteResponse.new({ "err" => ctx.make_error("request_no_response", "response: undefined") })
+      response = AmneziaWarpResponse.new({ "err" => ctx.make_error("request_no_response", "response: undefined") })
     elsif fetched.is_a?(Hash)
-      response = GithubWebsiteResponse.new(fetched)
+      response = AmneziaWarpResponse.new(fetched)
     else
       response.err = ctx.make_error("request_invalid_response", "response: invalid type")
     end

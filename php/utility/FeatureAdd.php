@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: feature_add
+// AmneziaWarp SDK utility: feature_add
 
-class GithubWebsiteFeatureAdd
+class AmneziaWarpFeatureAdd
 {
-    public static function call(GithubWebsiteContext $ctx, mixed $f): void
+    public static function call(AmneziaWarpContext $ctx, mixed $f): void
     {
         $features = &$ctx->client->features;
 

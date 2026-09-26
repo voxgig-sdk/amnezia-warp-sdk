@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/github-website-sdk/go"
+	sdk "github.com/voxgig-sdk/amnezia-warp-sdk/go"
 )
 
 func TestNetsim(t *testing.T) {

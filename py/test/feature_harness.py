@@ -1,4 +1,4 @@
-# GithubWebsite SDK feature test harness
+# AmneziaWarp SDK feature test harness
 #
 # Offline feature-test harness for the generated SDK.
 #
@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from githubwebsite_sdk.config import shared_config
-from githubwebsite_sdk.features import _make_feature
-from githubwebsite_sdk.core.control import GithubWebsiteControl
-from githubwebsite_sdk.core.error import GithubWebsiteError
-from githubwebsite_sdk.core.result import GithubWebsiteResult
-from githubwebsite_sdk.core.spec import GithubWebsiteSpec
+from amneziawarp_sdk.config import shared_config
+from amneziawarp_sdk.features import _make_feature
+from amneziawarp_sdk.core.control import AmneziaWarpControl
+from amneziawarp_sdk.core.error import AmneziaWarpError
+from amneziawarp_sdk.core.result import AmneziaWarpResult
+from amneziawarp_sdk.core.spec import AmneziaWarpSpec
 
 
 # True when this SDK was generated with the named feature.
@@ -161,7 +161,7 @@ class _Ctx:
         self.client = client
         self.utility = utility
         self.out = {}
-        self.ctrl = ctrl if ctrl is not None else GithubWebsiteControl()
+        self.ctrl = ctrl if ctrl is not None else AmneziaWarpControl()
         self.meta = {}
         self.op = op
         self.entity = entity
@@ -177,7 +177,7 @@ class _Ctx:
         self.shared = {}
 
     def make_error(self, code, msg):
-        return GithubWebsiteError(code, msg, self)
+        return AmneziaWarpError(code, msg, self)
 
 
 # Construct a fake client wired with the given features (in init order) and
@@ -227,7 +227,7 @@ class Harness:
                 method(ctx)
 
     def _populate_result(self, ctx, response, fetch_err):
-        result = GithubWebsiteResult({})
+        result = AmneziaWarpResult({})
         ctx.result = result
 
         if fetch_err is not None:
@@ -272,7 +272,7 @@ class Harness:
         ctx = _Ctx(self.client, self.utility,
                    op=_Op(opname, entity),
                    entity=_Entity(entity),
-                   ctrl=GithubWebsiteControl(ctrl or {}))
+                   ctrl=AmneziaWarpControl(ctrl or {}))
 
         self.feature_hook(ctx, "PostConstructEntity")
 
@@ -288,7 +288,7 @@ class Harness:
                 merged = dict(self.headers)
                 for key, val in (headers or {}).items():
                     merged[key] = val
-                spec = GithubWebsiteSpec({
+                spec = AmneziaWarpSpec({
                     "method": method,
                     "base": self.base,
                     "path": path if path is not None else "/" + entity,

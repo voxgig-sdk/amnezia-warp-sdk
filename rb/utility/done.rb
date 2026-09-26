@@ -1,5 +1,5 @@
-# GithubWebsite SDK utility: done
-module GithubWebsiteUtilities
+# AmneziaWarp SDK utility: done
+module AmneziaWarpUtilities
   Done = ->(ctx) {
     if ctx.ctrl.explain
       ctx.ctrl.explain = ctx.utility.clean.call(ctx, ctx.ctrl.explain)

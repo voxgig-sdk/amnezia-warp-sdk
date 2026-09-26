@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: clean
+-- AmneziaWarp SDK utility: clean
 
 local function clean_util(ctx, val)
   return val

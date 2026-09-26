@@ -1,6 +1,6 @@
-# GithubWebsite SDK utility: prepare_path
+# AmneziaWarp SDK utility: prepare_path
 require_relative 'struct/voxgig_struct'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   PreparePath = ->(ctx) {
     point = ctx.point
     parts = []

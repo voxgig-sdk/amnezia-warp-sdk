@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK utility: done
+// AmneziaWarp SDK utility: done
 
-class GithubWebsiteDone
+class AmneziaWarpDone
 {
-    public static function call(GithubWebsiteContext $ctx): mixed
+    public static function call(AmneziaWarpContext $ctx): mixed
     {
         if ($ctx->ctrl->explain) {
             $ctx->ctrl->explain = ($ctx->utility->clean)($ctx, $ctx->ctrl->explain);

@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: make_url
+-- AmneziaWarp SDK utility: make_url
 
 local vs = require("utility.struct.struct")
 

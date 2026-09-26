@@ -1,4 +1,4 @@
--- GithubWebsite SDK utility: prepare_params
+-- AmneziaWarp SDK utility: prepare_params
 
 local vs = require("utility.struct.struct")
 

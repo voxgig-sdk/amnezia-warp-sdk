@@ -1,6 +1,6 @@
-# GithubWebsite SDK helpers
+# AmneziaWarp SDK helpers
 
-module GithubWebsiteHelpers
+module AmneziaWarpHelpers
   def self.to_map(v)
     v.is_a?(Hash) ? v : nil
   end

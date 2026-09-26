@@ -2,7 +2,7 @@
 
 require "minitest/autorun"
 require "json"
-require_relative "../GithubWebsite_sdk"
+require_relative "../AmneziaWarp_sdk"
 require_relative "runner"
 
 class ConfigurationDirectTest < Minitest::Test
@@ -59,16 +59,18 @@ def configuration_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "GITHUB_WEBSITE_TEST_CONFIGURATION_ENTID" => {},
-    "GITHUB_WEBSITE_TEST_LIVE" => "FALSE",
+    "AMNEZIA_WARP_TEST_CONFIGURATION_ENTID" => {},
+    "AMNEZIA_WARP_TEST_LIVE" => "FALSE",
   })
 
-  live = env["GITHUB_WEBSITE_TEST_LIVE"] == "TRUE"
+  live = env["AMNEZIA_WARP_TEST_LIVE"] == "TRUE"
 
   if live
-    merged_opts = {
-    }
-    client = GithubWebsiteSDK.new(merged_opts)
+    # Merged so the generated fields win: sdk-test-control.json's
+    # test.client.options adds to the live client, it does not redirect it.
+    merged_opts = Runner.live_client_options.merge({
+    })
+    client = AmneziaWarpSDK.new(merged_opts)
     return {
       client: client,
       calls: calls,
@@ -93,7 +95,7 @@ def configuration_direct_setup(mockres)
     }, nil
   }
 
-  client = GithubWebsiteSDK.new({
+  client = AmneziaWarpSDK.new({
     "base" => "http://localhost:8080",
     "system" => {
       "fetch" => mock_fetch,

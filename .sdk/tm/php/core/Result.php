@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubWebsite SDK result
+// AmneziaWarp SDK result
 
-class GithubWebsiteResult
+class AmneziaWarpResult
 {
     public bool $ok;
     public int $status;

@@ -1,8 +1,8 @@
-# GithubWebsite SDK result
+# AmneziaWarp SDK result
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubWebsiteResult
+class AmneziaWarpResult
   attr_accessor :ok, :status, :status_text, :headers, :body, :err, :resdata, :resmatch,
                 :paging, :streaming, :stream
 

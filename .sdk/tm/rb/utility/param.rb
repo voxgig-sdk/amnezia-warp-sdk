@@ -1,7 +1,7 @@
-# GithubWebsite SDK utility: param
+# AmneziaWarp SDK utility: param
 require_relative 'struct/voxgig_struct'
 require_relative '../core/helpers'
-module GithubWebsiteUtilities
+module AmneziaWarpUtilities
   Param = ->(ctx, paramdef) {
     point = ctx.point
     spec = ctx.spec
@@ -20,7 +20,7 @@ module GithubWebsiteUtilities
 
     akey = ""
     if point
-      alias_map = GithubWebsiteHelpers.to_map(VoxgigStruct.getprop(point, "alias"))
+      alias_map = AmneziaWarpHelpers.to_map(VoxgigStruct.getprop(point, "alias"))
       if alias_map
         ak = VoxgigStruct.getprop(alias_map, key)
         akey = ak if ak.is_a?(String)
